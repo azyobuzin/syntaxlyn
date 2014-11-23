@@ -9,32 +9,44 @@ namespace Syntaxlyn
 {
     class BuildContext
     {
-        public BuildContext(string solutionFile)
+        public BuildContext(string[] files)
         {
-            this.solutionFile = solutionFile;
+            this.files = files;
         }
 
-        private readonly MSBuildWorkspace workspace = MSBuildWorkspace.Create();
-        private readonly string solutionFile;
-        public Solution Solution { get; private set; }
+        public MSBuildWorkspace Workspace { get; } = MSBuildWorkspace.Create();
+        private readonly string[] files;
 
         public async Task Build()
         {
-            this.Solution = await workspace.OpenSolutionAsync(this.solutionFile).ConfigureAwait(false);
-
             var outDir = Directory.CreateDirectory("out");
             await WriteCss(outDir);
 
-            foreach (var proj in this.Solution.Projects)
+            foreach (var file in files)
             {
-                var projDir = outDir.CreateSubdirectory(proj.Id.Id.ToString());
-                foreach (var doc in proj.Documents)
+                if (Path.GetExtension(file).ToLowerInvariant() == ".sln")
                 {
-                    Console.WriteLine(doc.Name);
-                    var semanticModel = await doc.GetSemanticModelAsync().ConfigureAwait(false);
-                    using (var writer = new StreamWriter(Path.Combine(projDir.FullName, doc.Id.Id.ToString() + ".html")))
-                    {
-                        await writer.WriteAsync(@"<!DOCTYPE html>
+                    var solution = await this.Workspace.OpenSolutionAsync(file);
+                    foreach (var proj in solution.Projects)
+                        await BuildProject(outDir, proj);
+                }
+                else
+                {
+                    await BuildProject(outDir, await this.Workspace.OpenProjectAsync(file));
+                }
+            }
+        }
+
+        private async Task BuildProject(DirectoryInfo outDir, Project proj)
+        {
+            var projDir = outDir.CreateSubdirectory(proj.Id.Id.ToString());
+            foreach (var doc in proj.Documents)
+            {
+                Console.WriteLine(doc.Name);
+                var semanticModel = await doc.GetSemanticModelAsync().ConfigureAwait(false);
+                using (var writer = new StreamWriter(Path.Combine(projDir.FullName, doc.Id.Id.ToString() + ".html")))
+                {
+                    await writer.WriteAsync(@"<!DOCTYPE html>
 <html>
 <head>
 <meta charset=""utf-8"">
@@ -43,12 +55,11 @@ namespace Syntaxlyn
 </head>
 <body>
 <pre>").ConfigureAwait(false);
-                        new CSharpHtmlWalker(this, semanticModel, writer)
-                            .Visit(await semanticModel.SyntaxTree.GetRootAsync().ConfigureAwait(false));
-                        await writer.WriteAsync(@"</pre>
+                    new CSharpHtmlWalker(this, semanticModel, writer)
+                        .Visit(await semanticModel.SyntaxTree.GetRootAsync().ConfigureAwait(false));
+                    await writer.WriteAsync(@"</pre>
 </body>
 </html>").ConfigureAwait(false);
-                    }
                 }
             }
         }

@@ -28,16 +28,20 @@ namespace Syntaxlyn
             base.VisitLeadingTrivia(token);
 
             var txt = WebUtility.HtmlEncode(token.Text);
-            if (token.IsKeyword())
+            var kind = token.CSharpKind();
+            if (token.IsKeyword() || SyntaxFacts.IsPreprocessorPunctuation(kind) || SyntaxFacts.IsPreprocessorKeyword(kind))
             {
                 this.writer.Write("<span class=\"keyword\">\{txt}</span>");
             }
             else
             {
-                switch (token.CSharpKind())
+                switch (kind)
                 {
                     case SyntaxKind.StringLiteralToken:
                     case SyntaxKind.CharacterLiteralToken:
+                    case SyntaxKind.InterpolatedStringStartToken:
+                    case SyntaxKind.InterpolatedStringMidToken:
+                    case SyntaxKind.InterpolatedStringEndToken:
                         this.writer.Write("<span class=\"string\">\{txt}</span>");
                         break;
                     case SyntaxKind.IdentifierToken:
@@ -58,21 +62,28 @@ namespace Syntaxlyn
 
         public override void VisitTrivia(SyntaxTrivia trivia)
         {
-            var txt = WebUtility.HtmlEncode(trivia.ToFullString());
-            switch (trivia.CSharpKind())
+            if (trivia.IsDirective)
             {
-                case SyntaxKind.MultiLineCommentTrivia:
-                case SyntaxKind.SingleLineCommentTrivia:
-                case SyntaxKind.SingleLineDocumentationCommentTrivia:
-                case SyntaxKind.MultiLineDocumentationCommentTrivia:
-                    this.writer.Write("<span class=\"comment\">\{txt}</span>");
-                    break;
-                case SyntaxKind.DisabledTextTrivia:
-                    this.writer.Write("<span class=\"disabled\">\{txt}</span>");
-                    break;
-                default:
-                    this.writer.Write(txt);
-                    break;
+                this.Visit(trivia.GetStructure());
+            }
+            else
+            {
+                var txt = WebUtility.HtmlEncode(trivia.ToFullString());
+                switch (trivia.CSharpKind())
+                {
+                    case SyntaxKind.MultiLineCommentTrivia:
+                    case SyntaxKind.SingleLineCommentTrivia:
+                    case SyntaxKind.SingleLineDocumentationCommentTrivia:
+                    case SyntaxKind.MultiLineDocumentationCommentTrivia:
+                        this.writer.Write("<span class=\"comment\">\{txt}</span>");
+                        break;
+                    case SyntaxKind.DisabledTextTrivia:
+                        this.writer.Write("<span class=\"disabled\">\{txt}</span>");
+                        break;
+                    default:
+                        this.writer.Write(txt);
+                        break;
+                }
             }
         }
 
@@ -82,7 +93,7 @@ namespace Syntaxlyn
             if (symbol != null && symbol.Kind != SymbolKind.Namespace)
             {
                 var syntaxRef = symbol.DeclaringSyntaxReferences.FirstOrDefault();
-                var doc = this.ctx.Solution.GetDocument(syntaxRef?.SyntaxTree);
+                var doc = this.ctx.Workspace.CurrentSolution.GetDocument(syntaxRef?.SyntaxTree);
                 if (doc != null)
                 {
                     this.startLink = "<a \{symbol.Kind == SymbolKind.NamedType ? "class=\"type\" " : ""}href =\"../\{doc.Id.ProjectId.Id}/\{doc.Id.Id}.html#\{syntaxRef.GetSyntax().GetHashCode()}\">";
@@ -130,7 +141,7 @@ namespace Syntaxlyn
                     isDecl = true;
                     break;
             }
-            
+
             base.DefaultVisit(node);
 
             if (isDecl) this.writer.Write("</span>");

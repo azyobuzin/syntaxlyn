@@ -8,7 +8,7 @@ namespace Syntaxlyn
         {
             try
             {
-                new BuildContext(args[0]).Build().Wait();
+                new BuildContext(args).Build().Wait();
             }
             catch
             {
