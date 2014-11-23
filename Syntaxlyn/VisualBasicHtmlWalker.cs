@@ -2,14 +2,14 @@
 using System.Linq;
 using System.Net;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.VisualBasic;
+using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 
 namespace Syntaxlyn
 {
-    class CSharpHtmlWalker : CSharpSyntaxWalker
+    class VisualBasicHtmlWalker : VisualBasicSyntaxWalker
     {
-        public CSharpHtmlWalker(BuildContext ctx, SemanticModel semanticModel, TextWriter writer)
+        public VisualBasicHtmlWalker(BuildContext ctx, SemanticModel semanticModel, TextWriter writer)
             : base(SyntaxWalkerDepth.StructuredTrivia)
         {
             this.ctx = ctx;
@@ -28,8 +28,8 @@ namespace Syntaxlyn
             base.VisitLeadingTrivia(token);
 
             var txt = WebUtility.HtmlEncode(token.Text);
-            var kind = token.CSharpKind();
-            if (token.IsKeyword() || SyntaxFacts.IsPreprocessorPunctuation(kind) || SyntaxFacts.IsPreprocessorKeyword(kind))
+            var kind = token.VBKind();
+            if (token.IsKeyword() || SyntaxFacts.IsPreprocessorPunctuation(kind) || token.IsPreprocessorKeyword())
             {
                 this.writer.Write("<span class=\"keyword\">\{txt}</span>");
             }
@@ -39,9 +39,6 @@ namespace Syntaxlyn
                 {
                     case SyntaxKind.StringLiteralToken:
                     case SyntaxKind.CharacterLiteralToken:
-                    case SyntaxKind.InterpolatedStringStartToken:
-                    case SyntaxKind.InterpolatedStringMidToken:
-                    case SyntaxKind.InterpolatedStringEndToken:
                         this.writer.Write("<span class=\"string\">\{txt}</span>");
                         break;
                     case SyntaxKind.IdentifierToken:
@@ -69,12 +66,9 @@ namespace Syntaxlyn
             else
             {
                 var txt = WebUtility.HtmlEncode(trivia.ToFullString());
-                switch (trivia.CSharpKind())
+                switch (trivia.VBKind())
                 {
-                    case SyntaxKind.MultiLineCommentTrivia:
-                    case SyntaxKind.SingleLineCommentTrivia:
-                    case SyntaxKind.SingleLineDocumentationCommentTrivia:
-                    case SyntaxKind.MultiLineDocumentationCommentTrivia:
+                    case SyntaxKind.CommentTrivia:
                         this.writer.Write("<span class=\"comment\">\{txt}</span>");
                         break;
                     case SyntaxKind.DisabledTextTrivia:
@@ -87,7 +81,7 @@ namespace Syntaxlyn
             }
         }
 
-        private void SetStartLink(ExpressionSyntax node)
+        private void SetStartLink(ExpressionSyntax node) //TODO: C# と統合
         {
             var symbol = this.semanticModel.GetSymbolInfo(node).Symbol;
             if (symbol != null && symbol.Kind != SymbolKind.Namespace)
@@ -96,6 +90,7 @@ namespace Syntaxlyn
                 var doc = this.ctx.Workspace.CurrentSolution.GetDocument(syntaxRef?.SyntaxTree);
                 if (doc != null)
                 {
+                    System.Diagnostics.Debug.WriteLine(syntaxRef.GetSyntax().GetType());
                     this.startLink = "<a \{symbol.Kind == SymbolKind.NamedType ? "class=\"type\" " : ""}href =\"../\{doc.Id.ProjectId.Id}/\{doc.Id.Id}.html#\{syntaxRef.GetSyntax().GetHashCode()}\">";
                 }
             }
@@ -116,28 +111,30 @@ namespace Syntaxlyn
         public override void DefaultVisit(SyntaxNode node)
         {
             var isDecl = false;
-            switch (node.CSharpKind())
+            switch (node.VBKind())
             {
-                case SyntaxKind.CatchDeclaration:
-                case SyntaxKind.ClassDeclaration:
-                case SyntaxKind.ConstructorDeclaration:
-                case SyntaxKind.DelegateDeclaration:
-                case SyntaxKind.EnumDeclaration:
+                case SyntaxKind.ClassStatement:
+                case SyntaxKind.CatchStatement:
+                case SyntaxKind.DeclareFunctionStatement:
+                case SyntaxKind.DeclareSubStatement:
+                case SyntaxKind.DelegateFunctionStatement:
+                case SyntaxKind.DelegateSubStatement:
+                case SyntaxKind.ForStatement:
+                case SyntaxKind.ForEachStatement:
+                case SyntaxKind.InterfaceStatement:
+                case SyntaxKind.ModuleStatement:
+                case SyntaxKind.OperatorStatement:
+                case SyntaxKind.PropertyStatement:
+                case SyntaxKind.StructureStatement:
+                case SyntaxKind.SubNewStatement:
+                case SyntaxKind.SubStatement:
+                case SyntaxKind.UsingStatement:
                 case SyntaxKind.EnumMemberDeclaration:
-                case SyntaxKind.EventDeclaration:
-                case SyntaxKind.EventFieldDeclaration:
                 case SyntaxKind.FieldDeclaration:
-                case SyntaxKind.IndexerDeclaration:
-                case SyntaxKind.InterfaceDeclaration:
-                case SyntaxKind.MethodDeclaration:
-                case SyntaxKind.OperatorDeclaration:
-                case SyntaxKind.PropertyDeclaration:
-                case SyntaxKind.StructDeclaration:
-                case SyntaxKind.VariableDeclaration:
+                case SyntaxKind.VariableDeclarator:
                 case SyntaxKind.Parameter:
                 case SyntaxKind.TypeParameter:
-                case SyntaxKind.VariableDeclarator:
-                case SyntaxKind.FromClause:
+                case SyntaxKind.ModifiedIdentifier:
                     this.writer.Write("<span id=\"\{node.GetHashCode()}\">");
                     isDecl = true;
                     break;

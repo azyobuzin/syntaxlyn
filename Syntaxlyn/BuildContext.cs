@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.MSBuild;
 
 namespace Syntaxlyn
 {
-    class BuildContext
+    public class BuildContext
     {
         public BuildContext(string[] files)
         {
@@ -44,6 +44,7 @@ namespace Syntaxlyn
             {
                 Console.WriteLine(doc.Name);
                 var semanticModel = await doc.GetSemanticModelAsync().ConfigureAwait(false);
+                var root = await semanticModel.SyntaxTree.GetRootAsync().ConfigureAwait(false);
                 using (var writer = new StreamWriter(Path.Combine(projDir.FullName, doc.Id.Id.ToString() + ".html")))
                 {
                     await writer.WriteAsync(@"<!DOCTYPE html>
@@ -55,8 +56,17 @@ namespace Syntaxlyn
 </head>
 <body>
 <pre>").ConfigureAwait(false);
-                    new CSharpHtmlWalker(this, semanticModel, writer)
-                        .Visit(await semanticModel.SyntaxTree.GetRootAsync().ConfigureAwait(false));
+                    switch (proj.Language)
+                    {
+                        case "C#":
+                            new CSharpHtmlWalker(this, semanticModel, writer).Visit(root);
+                            break;
+                        case "Visual Basic":
+                            new VisualBasicHtmlWalker(this, semanticModel, writer).Visit(root);
+                            break;
+                        default:
+                            throw new NotSupportedException(proj.Language);
+                    }
                     await writer.WriteAsync(@"</pre>
 </body>
 </html>").ConfigureAwait(false);
