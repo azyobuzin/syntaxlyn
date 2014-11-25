@@ -1,6 +1,4 @@
 ﻿using System.IO;
-using System.Linq;
-using System.Net;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.VisualBasic;
 using Microsoft.CodeAnalysis.VisualBasic.Syntax;
@@ -12,26 +10,19 @@ namespace Syntaxlyn
         public VisualBasicHtmlWalker(BuildContext ctx, SemanticModel semanticModel, TextWriter writer)
             : base(SyntaxWalkerDepth.StructuredTrivia)
         {
-            this.ctx = ctx;
-            this.semanticModel = semanticModel;
-            this.writer = writer;
+            this.impl = new WalkerImpl(ctx, semanticModel, writer);
         }
 
-        private readonly BuildContext ctx;
-        private readonly SemanticModel semanticModel;
-        private readonly TextWriter writer;
-
-        private string startLink;
+        private readonly WalkerImpl impl;
 
         public override void VisitToken(SyntaxToken token)
         {
             base.VisitLeadingTrivia(token);
 
-            var txt = WebUtility.HtmlEncode(token.Text);
             var kind = token.VBKind();
             if (token.IsKeyword() || SyntaxFacts.IsPreprocessorPunctuation(kind) || token.IsPreprocessorKeyword())
             {
-                this.writer.Write("<span class=\"keyword\">\{txt}</span>");
+                this.impl.WriteKeyword(token);
             }
             else
             {
@@ -39,17 +30,13 @@ namespace Syntaxlyn
                 {
                     case SyntaxKind.StringLiteralToken:
                     case SyntaxKind.CharacterLiteralToken:
-                        this.writer.Write("<span class=\"string\">\{txt}</span>");
+                        this.impl.WriteString(token);
                         break;
                     case SyntaxKind.IdentifierToken:
-                        var isLink = startLink != null;
-                        if (isLink) this.writer.Write(startLink);
-                        this.writer.Write(txt);
-                        if (isLink) this.writer.Write("</a>");
-                        startLink = null;
+                        this.impl.WriteIdentifierToken(token);
                         break;
                     default:
-                        this.writer.Write(txt);
+                        this.impl.Write(token);
                         break;
                 }
             }
@@ -65,46 +52,30 @@ namespace Syntaxlyn
             }
             else
             {
-                var txt = WebUtility.HtmlEncode(trivia.ToFullString());
                 switch (trivia.VBKind())
                 {
                     case SyntaxKind.CommentTrivia:
-                        this.writer.Write("<span class=\"comment\">\{txt}</span>");
+                        this.impl.WriteComment(trivia);
                         break;
                     case SyntaxKind.DisabledTextTrivia:
-                        this.writer.Write("<span class=\"disabled\">\{txt}</span>");
+                        this.impl.WriteDisabledText(trivia);
                         break;
                     default:
-                        this.writer.Write(txt);
+                        this.impl.Write(trivia);
                         break;
-                }
-            }
-        }
-
-        private void SetStartLink(ExpressionSyntax node) //TODO: C# と統合
-        {
-            var symbol = this.semanticModel.GetSymbolInfo(node).Symbol;
-            if (symbol != null && symbol.Kind != SymbolKind.Namespace)
-            {
-                var syntaxRef = symbol.DeclaringSyntaxReferences.FirstOrDefault();
-                var doc = this.ctx.Workspace.CurrentSolution.GetDocument(syntaxRef?.SyntaxTree);
-                if (doc != null)
-                {
-                    System.Diagnostics.Debug.WriteLine(syntaxRef.GetSyntax().GetType());
-                    this.startLink = "<a \{symbol.Kind == SymbolKind.NamedType ? "class=\"type\" " : ""}href =\"../\{doc.Id.ProjectId.Id}/\{doc.Id.Id}.html#\{syntaxRef.GetSyntax().GetHashCode()}\">";
                 }
             }
         }
 
         public override void VisitIdentifierName(IdentifierNameSyntax node)
         {
-            this.SetStartLink(node);
+            this.impl.SetStartLink(node);
             base.VisitIdentifierName(node);
         }
 
         public override void VisitGenericName(GenericNameSyntax node)
         {
-            this.SetStartLink(node);
+            this.impl.SetStartLink(node);
             base.VisitGenericName(node);
         }
 
@@ -135,14 +106,14 @@ namespace Syntaxlyn
                 case SyntaxKind.Parameter:
                 case SyntaxKind.TypeParameter:
                 case SyntaxKind.ModifiedIdentifier:
-                    this.writer.Write("<span id=\"\{node.GetHashCode()}\">");
+                    this.impl.WriteDeclarationId(node);
                     isDecl = true;
                     break;
             }
 
             base.DefaultVisit(node);
 
-            if (isDecl) this.writer.Write("</span>");
+            if (isDecl) this.impl.WriteEndDeclaration();
         }
     }
 }

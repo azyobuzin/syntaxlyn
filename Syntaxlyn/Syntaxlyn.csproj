@@ -103,6 +103,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VisualBasicHtmlWalker.cs" />
+    <Compile Include="WalkerImpl.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

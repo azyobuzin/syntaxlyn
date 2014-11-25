@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+﻿using System;
 
 namespace Syntaxlyn
 {
@@ -10,9 +10,9 @@ namespace Syntaxlyn
             {
                 new BuildContext(args).Build().Wait();
             }
-            catch
+            catch (Exception ex)
             {
-                Debugger.Break();
+                Console.WriteLine(ex);
             }
         }
     }
