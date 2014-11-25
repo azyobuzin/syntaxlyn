@@ -18,18 +18,36 @@ namespace Syntaxlyn
         internal SemanticModel SemanticModel { get; private set; }
         internal TextWriter Writer { get; private set; }
 
-        private string startLink;
+        private string startIdentifier;
+        private string endIdentifier;
 
-        internal void SetStartLink(SyntaxNode node)
+        internal void VisitIdentifierName(SyntaxNode node)
         {
             var symbol = this.SemanticModel.GetSymbolInfo(node).Symbol;
-            if (symbol != null && symbol.Kind != SymbolKind.Namespace)
+            if (symbol == null) return;
+
+            var isVar = false;
+            if (this.SemanticModel.Language == "C#")
+            {
+                var idNode = node as Microsoft.CodeAnalysis.CSharp.Syntax.IdentifierNameSyntax;
+                isVar = idNode != null && idNode.IsVar;
+            }
+
+            this.startIdentifier = "<span class=\""
+                + (isVar ? "keyword" :
+                    symbol.Kind == SymbolKind.NamedType || symbol.Kind == SymbolKind.TypeParameter || symbol.MetadataName == ".ctor" ? "type" :
+                    "")
+                + "\" title=\"\{WebUtility.HtmlEncode(symbol.ToMinimalDisplayString(this.SemanticModel, node.SpanStart))}\">";
+            this.endIdentifier = "</span>";
+
+            if (symbol.Kind != SymbolKind.Namespace)
             {
                 var syntaxRef = symbol.DeclaringSyntaxReferences.FirstOrDefault();
                 var doc = this.Context.Workspace.CurrentSolution.GetDocument(syntaxRef?.SyntaxTree);
                 if (doc != null)
                 {
-                    this.startLink = "<a \{symbol.Kind == SymbolKind.NamedType ? "class=\"type\" " : ""}href =\"../\{doc.Id.ProjectId.Id}/\{doc.Id.Id}.html#\{syntaxRef.GetSyntax().GetHashCode()}\">";
+                    this.startIdentifier += "<a href=\"../\{doc.Id.ProjectId.Id}/\{doc.Id.Id}.html#\{syntaxRef.GetSyntax().GetHashCode()}\">";
+                    this.endIdentifier = "</a>" + this.endIdentifier;
                 }
             }
         }
@@ -76,13 +94,14 @@ namespace Syntaxlyn
 
         internal void WriteIdentifierToken(SyntaxToken token)
         {
-            var isLink = this.startLink != null;
-            if (isLink) this.WriteRaw(this.startLink);
+            var idTag = this.startIdentifier != null;
+            if (idTag) this.WriteRaw(this.startIdentifier);
             this.Write(token.Text);
-            if (isLink)
+            if (idTag)
             {
-                this.WriteRaw("</a>");
-                this.startLink = null;
+                this.WriteRaw(this.endIdentifier);
+                this.startIdentifier = null;
+                this.endIdentifier = null;
             }
         }
 

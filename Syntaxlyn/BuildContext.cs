@@ -79,7 +79,7 @@ namespace Syntaxlyn
             using (var writer = new StreamWriter(Path.Combine(dir.FullName, "style.css")))
             {
                 await writer.WriteAsync(@"pre {
-    font-family: Consolas, メイリオ, monospace;
+    font-family: Consolas, 'メイリオ', monospace;
     font-size: 12pt;
     color: black;
 }

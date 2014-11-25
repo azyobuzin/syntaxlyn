@@ -75,13 +75,13 @@ namespace Syntaxlyn
 
         public override void VisitIdentifierName(IdentifierNameSyntax node)
         {
-            this.impl.SetStartLink(node);
+            this.impl.VisitIdentifierName(node);
             base.VisitIdentifierName(node);
         }
 
         public override void VisitGenericName(GenericNameSyntax node)
         {
-            this.impl.SetStartLink(node);
+            this.impl.VisitIdentifierName(node);
             base.VisitGenericName(node);
         }
 
