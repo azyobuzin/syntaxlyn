@@ -33,11 +33,18 @@ namespace Syntaxlyn
                 isVar = idNode != null && idNode.IsVar;
             }
 
-            this.startIdentifier = "<span class=\""
-                + (isVar ? "keyword" :
-                    symbol.Kind == SymbolKind.NamedType || symbol.Kind == SymbolKind.TypeParameter || symbol.MetadataName == ".ctor" ? "type" :
-                    "")
-                + "\" title=\"\{WebUtility.HtmlEncode(symbol.ToMinimalDisplayString(this.SemanticModel, node.SpanStart))}\">";
+            this.startIdentifier = string.Format(
+                "<span class=\"{0}\" title=\"{1}\">",
+                isVar ? "keyword"
+                    : symbol.Kind == SymbolKind.NamedType || symbol.Kind == SymbolKind.TypeParameter || symbol.MetadataName == ".ctor"
+                        ? "type"
+                        : "",
+                WebUtility.HtmlEncode(
+                    symbol.Kind == SymbolKind.NamedType
+                        ? symbol.ToDisplayString()
+                        : symbol.ToMinimalDisplayString(this.SemanticModel, node.SpanStart)
+                )
+            );
             this.endIdentifier = "</span>";
 
             if (symbol.Kind != SymbolKind.Namespace)
@@ -128,6 +135,14 @@ namespace Syntaxlyn
         internal void WriteDeclarationId(SyntaxNode node)
         {
             this.WriteRaw("<span id=\"\{node.GetHashCode()}\">");
+        }
+
+        internal void VisitTypeDeclaration(SyntaxNode node)
+        {
+            this.WriteDeclarationId(node);
+
+            this.startIdentifier = @"<span class=""type"">";
+            this.endIdentifier = "</span>";
         }
 
         internal void WriteEndDeclaration()

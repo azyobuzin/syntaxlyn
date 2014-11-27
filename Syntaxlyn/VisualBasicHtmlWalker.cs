@@ -85,18 +85,23 @@ namespace Syntaxlyn
             switch (node.VBKind())
             {
                 case SyntaxKind.ClassStatement:
+                case SyntaxKind.EnumStatement:
+                case SyntaxKind.DelegateFunctionStatement:
+                case SyntaxKind.DelegateSubStatement:
+                case SyntaxKind.InterfaceStatement:
+                case SyntaxKind.ModuleStatement:
+                case SyntaxKind.StructureStatement:
+                case SyntaxKind.TypeParameter:
+                    this.impl.VisitTypeDeclaration(node);
+                    isDecl = true;
+                    break;
                 case SyntaxKind.CatchStatement:
                 case SyntaxKind.DeclareFunctionStatement:
                 case SyntaxKind.DeclareSubStatement:
-                case SyntaxKind.DelegateFunctionStatement:
-                case SyntaxKind.DelegateSubStatement:
                 case SyntaxKind.ForStatement:
                 case SyntaxKind.ForEachStatement:
-                case SyntaxKind.InterfaceStatement:
-                case SyntaxKind.ModuleStatement:
                 case SyntaxKind.OperatorStatement:
                 case SyntaxKind.PropertyStatement:
-                case SyntaxKind.StructureStatement:
                 case SyntaxKind.SubNewStatement:
                 case SyntaxKind.SubStatement:
                 case SyntaxKind.UsingStatement:
@@ -104,7 +109,6 @@ namespace Syntaxlyn
                 case SyntaxKind.FieldDeclaration:
                 case SyntaxKind.VariableDeclarator:
                 case SyntaxKind.Parameter:
-                case SyntaxKind.TypeParameter:
                 case SyntaxKind.ModifiedIdentifier:
                     this.impl.WriteDeclarationId(node);
                     isDecl = true;

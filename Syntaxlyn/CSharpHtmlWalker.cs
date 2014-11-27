@@ -90,24 +90,27 @@ namespace Syntaxlyn
             var isDecl = false;
             switch (node.CSharpKind())
             {
-                case SyntaxKind.CatchDeclaration:
                 case SyntaxKind.ClassDeclaration:
-                case SyntaxKind.ConstructorDeclaration:
                 case SyntaxKind.DelegateDeclaration:
                 case SyntaxKind.EnumDeclaration:
+                case SyntaxKind.InterfaceDeclaration:
+                case SyntaxKind.StructDeclaration:
+                case SyntaxKind.TypeParameter:
+                    this.impl.VisitTypeDeclaration(node);
+                    isDecl = true;
+                    break;
+                case SyntaxKind.CatchDeclaration:
+                case SyntaxKind.ConstructorDeclaration:
                 case SyntaxKind.EnumMemberDeclaration:
                 case SyntaxKind.EventDeclaration:
                 case SyntaxKind.EventFieldDeclaration:
                 case SyntaxKind.FieldDeclaration:
                 case SyntaxKind.IndexerDeclaration:
-                case SyntaxKind.InterfaceDeclaration:
                 case SyntaxKind.MethodDeclaration:
                 case SyntaxKind.OperatorDeclaration:
                 case SyntaxKind.PropertyDeclaration:
-                case SyntaxKind.StructDeclaration:
                 case SyntaxKind.VariableDeclaration:
                 case SyntaxKind.Parameter:
-                case SyntaxKind.TypeParameter:
                 case SyntaxKind.VariableDeclarator:
                 case SyntaxKind.FromClause:
                     this.impl.WriteDeclarationId(node);
