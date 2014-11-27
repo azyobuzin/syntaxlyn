@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.MSBuild;
 
-namespace Syntaxlyn
+namespace Syntaxlyn.Core
 {
     public class BuildContext
     {
@@ -16,6 +16,8 @@ namespace Syntaxlyn
 
         public MSBuildWorkspace Workspace { get; } = MSBuildWorkspace.Create();
         private readonly string[] files;
+
+        public event EventHandler<StartedParsingDocumentEventArgs> StartedParsingDocument;
 
         public async Task Build()
         {
@@ -42,7 +44,9 @@ namespace Syntaxlyn
             var projDir = outDir.CreateSubdirectory(proj.Id.Id.ToString());
             foreach (var doc in proj.Documents)
             {
-                Console.WriteLine(doc.Name);
+                if (this.StartedParsingDocument != null)
+                    this.StartedParsingDocument(this, new StartedParsingDocumentEventArgs(doc));
+
                 var semanticModel = await doc.GetSemanticModelAsync().ConfigureAwait(false);
                 var root = await semanticModel.SyntaxTree.GetRootAsync().ConfigureAwait(false);
                 using (var writer = new StreamWriter(Path.Combine(projDir.FullName, doc.Id.Id.ToString() + ".html")))

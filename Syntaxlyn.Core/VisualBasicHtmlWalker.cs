@@ -1,13 +1,13 @@
 ﻿using System.IO;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.VisualBasic;
+using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 
-namespace Syntaxlyn
+namespace Syntaxlyn.Core
 {
-    class CSharpHtmlWalker : CSharpSyntaxWalker
+    class VisualBasicHtmlWalker : VisualBasicSyntaxWalker
     {
-        public CSharpHtmlWalker(BuildContext ctx, SemanticModel semanticModel, TextWriter writer)
+        public VisualBasicHtmlWalker(BuildContext ctx, SemanticModel semanticModel, TextWriter writer)
             : base(SyntaxWalkerDepth.StructuredTrivia)
         {
             this.impl = new WalkerImpl(ctx, semanticModel, writer);
@@ -19,8 +19,8 @@ namespace Syntaxlyn
         {
             base.VisitLeadingTrivia(token);
 
-            var kind = token.CSharpKind();
-            if (token.IsKeyword() || SyntaxFacts.IsPreprocessorPunctuation(kind) || SyntaxFacts.IsPreprocessorKeyword(kind))
+            var kind = token.VBKind();
+            if (token.IsKeyword() || SyntaxFacts.IsPreprocessorPunctuation(kind) || token.IsPreprocessorKeyword())
             {
                 this.impl.WriteKeyword(token);
             }
@@ -30,9 +30,6 @@ namespace Syntaxlyn
                 {
                     case SyntaxKind.StringLiteralToken:
                     case SyntaxKind.CharacterLiteralToken:
-                    case SyntaxKind.InterpolatedStringStartToken:
-                    case SyntaxKind.InterpolatedStringMidToken:
-                    case SyntaxKind.InterpolatedStringEndToken:
                         this.impl.WriteString(token);
                         break;
                     case SyntaxKind.IdentifierToken:
@@ -55,12 +52,9 @@ namespace Syntaxlyn
             }
             else
             {
-                switch (trivia.CSharpKind())
+                switch (trivia.VBKind())
                 {
-                    case SyntaxKind.MultiLineCommentTrivia:
-                    case SyntaxKind.SingleLineCommentTrivia:
-                    case SyntaxKind.SingleLineDocumentationCommentTrivia:
-                    case SyntaxKind.MultiLineDocumentationCommentTrivia:
+                    case SyntaxKind.CommentTrivia:
                         this.impl.WriteComment(trivia);
                         break;
                     case SyntaxKind.DisabledTextTrivia:
@@ -88,31 +82,34 @@ namespace Syntaxlyn
         public override void DefaultVisit(SyntaxNode node)
         {
             var isDecl = false;
-            switch (node.CSharpKind())
+            switch (node.VBKind())
             {
-                case SyntaxKind.ClassDeclaration:
-                case SyntaxKind.DelegateDeclaration:
-                case SyntaxKind.EnumDeclaration:
-                case SyntaxKind.InterfaceDeclaration:
-                case SyntaxKind.StructDeclaration:
+                case SyntaxKind.ClassStatement:
+                case SyntaxKind.EnumStatement:
+                case SyntaxKind.DelegateFunctionStatement:
+                case SyntaxKind.DelegateSubStatement:
+                case SyntaxKind.InterfaceStatement:
+                case SyntaxKind.ModuleStatement:
+                case SyntaxKind.StructureStatement:
                 case SyntaxKind.TypeParameter:
                     this.impl.VisitTypeDeclaration(node);
                     isDecl = true;
                     break;
-                case SyntaxKind.CatchDeclaration:
-                case SyntaxKind.ConstructorDeclaration:
+                case SyntaxKind.CatchStatement:
+                case SyntaxKind.DeclareFunctionStatement:
+                case SyntaxKind.DeclareSubStatement:
+                case SyntaxKind.ForStatement:
+                case SyntaxKind.ForEachStatement:
+                case SyntaxKind.OperatorStatement:
+                case SyntaxKind.PropertyStatement:
+                case SyntaxKind.SubNewStatement:
+                case SyntaxKind.SubStatement:
+                case SyntaxKind.UsingStatement:
                 case SyntaxKind.EnumMemberDeclaration:
-                case SyntaxKind.EventDeclaration:
-                case SyntaxKind.EventFieldDeclaration:
                 case SyntaxKind.FieldDeclaration:
-                case SyntaxKind.IndexerDeclaration:
-                case SyntaxKind.MethodDeclaration:
-                case SyntaxKind.OperatorDeclaration:
-                case SyntaxKind.PropertyDeclaration:
-                case SyntaxKind.VariableDeclaration:
-                case SyntaxKind.Parameter:
                 case SyntaxKind.VariableDeclarator:
-                case SyntaxKind.FromClause:
+                case SyntaxKind.Parameter:
+                case SyntaxKind.ModifiedIdentifier:
                     this.impl.WriteDeclarationId(node);
                     isDecl = true;
                     break;

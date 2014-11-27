@@ -1,6 +1,7 @@
 ﻿using System;
+using Syntaxlyn.Core;
 
-namespace Syntaxlyn
+namespace Syntaxlyn.Cmd
 {
     class Program
     {
@@ -8,7 +9,9 @@ namespace Syntaxlyn
         {
             try
             {
-                new BuildContext(args).Build().Wait();
+                var ctx = new BuildContext(args);
+                ctx.StartedParsingDocument += (sender, e) => Console.WriteLine(e.Document.Name);
+                ctx.Build().Wait();
             }
             catch (Exception ex)
             {

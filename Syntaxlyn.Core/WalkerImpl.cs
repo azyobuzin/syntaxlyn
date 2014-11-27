@@ -3,7 +3,7 @@ using System.Linq;
 using System.Net;
 using Microsoft.CodeAnalysis;
 
-namespace Syntaxlyn
+namespace Syntaxlyn.Core
 {
     class WalkerImpl
     {
