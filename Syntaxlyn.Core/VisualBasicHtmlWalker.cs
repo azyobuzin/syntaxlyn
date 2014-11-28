@@ -69,36 +69,32 @@ namespace Syntaxlyn.Core
             await this.VisitTrailingTrivia(token).ConfigureAwait(false);
         }
 
-        public override Task VisitTrivia(SyntaxTrivia trivia)
+        public override async Task VisitTrivia(SyntaxTrivia trivia)
         {
             if (trivia.IsDirective)
             {
-                return this.Visit(trivia.GetStructure());
+                await this.Visit(trivia.GetStructure());
             }
             else
             {
                 switch (trivia.VBKind())
                 {
                     case SyntaxKind.CommentTrivia:
-                        return this.impl.WriteComment(trivia);
+                        await this.impl.WriteComment(trivia);
+                        break;
                     case SyntaxKind.DisabledTextTrivia:
-                        return this.impl.WriteDisabledText(trivia);
+                        await this.impl.WriteDisabledText(trivia);
+                        break;
+                    case SyntaxKind.DocumentationCommentTrivia:
+                        await this.impl.WriteStartXmlComment().ConfigureAwait(false);
+                        await this.Visit(trivia.GetStructure()).ConfigureAwait(false);
+                        await this.impl.WriteEndXmlComment().ConfigureAwait(false);
+                        break;
                     default:
-                        return this.impl.Write(trivia);
+                        await this.impl.Write(trivia);
+                        break;
                 }
             }
-        }
-
-        public override async Task VisitIdentifierName(IdentifierNameSyntax node)
-        {
-            await this.impl.VisitIdentifierName(node).ConfigureAwait(false);
-            await base.VisitIdentifierName(node).ConfigureAwait(false);
-        }
-
-        public override async Task VisitGenericName(GenericNameSyntax node)
-        {
-            await this.impl.VisitIdentifierName(node).ConfigureAwait(false);
-            await base.VisitGenericName(node).ConfigureAwait(false);
         }
 
         public override async Task DefaultVisit(SyntaxNode node)
@@ -122,6 +118,7 @@ namespace Syntaxlyn.Core
                 case SyntaxKind.DeclareSubStatement:
                 case SyntaxKind.ForStatement:
                 case SyntaxKind.ForEachStatement:
+                case SyntaxKind.FunctionStatement:
                 case SyntaxKind.OperatorStatement:
                 case SyntaxKind.PropertyStatement:
                 case SyntaxKind.SubNewStatement:
@@ -135,11 +132,39 @@ namespace Syntaxlyn.Core
                     await this.impl.WriteDeclarationId(node).ConfigureAwait(false);
                     isDecl = true;
                     break;
+                case SyntaxKind.IdentifierName:
+                case SyntaxKind.GenericName:
+                    await this.impl.VisitIdentifierName(node).ConfigureAwait(false);
+                    break;
             }
 
             await base.DefaultVisit(node).ConfigureAwait(false);
 
             if (isDecl) await this.impl.WriteEndDeclaration().ConfigureAwait(false);
+        }
+
+        public override async Task VisitCrefReference(CrefReferenceSyntax node)
+        {
+            await this.impl.WriteStartXmlIdentifier().ConfigureAwait(false);
+            await base.VisitCrefReference(node).ConfigureAwait(false);
+            await this.impl.WriteEndXmlIdentifier().ConfigureAwait(false);
+        }
+
+        public override async Task VisitXmlText(XmlTextSyntax node)
+        {
+            foreach (var t in node.ChildTokens())
+            {
+                if (t.VBKind() == SyntaxKind.XmlTextLiteralToken)
+                {
+                    await this.VisitLeadingTrivia(t).ConfigureAwait(false);
+                    await this.impl.WriteComment(t).ConfigureAwait(false);
+                    await this.VisitTrailingTrivia(t).ConfigureAwait(false);
+                }
+                else
+                {
+                    await this.VisitToken(t);
+                }
+            }
         }
     }
 }

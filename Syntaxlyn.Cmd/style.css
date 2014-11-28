@@ -6,6 +6,9 @@
 a {
     color: black;
 }
+.identifier {
+    color: black;
+}
 .keyword {
     color: blue;
 }
@@ -19,5 +22,8 @@ a {
     color: green;
 }
 .disabled {
+    color: gray;
+}
+.xmlcomment {
     color: gray;
 }

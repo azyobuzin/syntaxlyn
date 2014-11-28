@@ -41,7 +41,7 @@ namespace Syntaxlyn.Core
                 isVar ? "keyword"
                     : symbol.Kind == SymbolKind.NamedType || symbol.Kind == SymbolKind.TypeParameter || symbol.MetadataName == ".ctor"
                         ? "type"
-                        : "",
+                        : "identifier",
                 WebUtility.HtmlEncode(
                     symbol.Kind == SymbolKind.NamedType
                         ? symbol.ToDisplayString()
@@ -82,6 +82,11 @@ namespace Syntaxlyn.Core
             return this.Write(trivia.ToFullString());
         }
 
+        private Task WriteEndSpan()
+        {
+            return this.WriteRaw("</span>");
+        }
+
         internal Task WriteKeyword(string txt)
         {
             return this.WriteRaw("<span class=\"keyword\">\{WebUtility.HtmlEncode(txt)}</span>");
@@ -120,6 +125,11 @@ namespace Syntaxlyn.Core
             return this.WriteRaw("<span class=\"comment\">\{WebUtility.HtmlEncode(txt)}</span>");
         }
 
+        internal Task WriteComment(SyntaxToken token)
+        {
+            return this.WriteComment(token.Text);
+        }
+
         internal Task WriteComment(SyntaxTrivia trivia)
         {
             return this.WriteComment(trivia.ToFullString());
@@ -150,7 +160,27 @@ namespace Syntaxlyn.Core
 
         internal Task WriteEndDeclaration()
         {
-            return this.WriteRaw("</span>");
+            return this.WriteEndSpan();
+        }
+
+        internal Task WriteStartXmlComment()
+        {
+            return this.WriteRaw(@"<span class=""xmlcomment"">");
+        }
+
+        internal Task WriteEndXmlComment()
+        {
+            return this.WriteEndSpan();
+        }
+
+        internal Task WriteStartXmlIdentifier()
+        {
+            return this.WriteRaw(@"<span class=""identifier"">");
+        }
+
+        internal Task WriteEndXmlIdentifier()
+        {
+            return this.WriteEndSpan();
         }
     }
 }
