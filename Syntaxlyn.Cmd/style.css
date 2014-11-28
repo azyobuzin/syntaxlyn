@@ -1,0 +1,23 @@
+﻿pre {
+    font-family: Consolas, 'メイリオ', monospace;
+    font-size: 12pt;
+    color: black;
+}
+a {
+    color: black;
+}
+.keyword {
+    color: blue;
+}
+.string {
+    color: maroon;
+}
+.type, .type a {
+    color: #2b91af;
+}
+.comment {
+    color: green;
+}
+.disabled {
+    color: gray;
+}

@@ -1,28 +1,53 @@
 ﻿using System.IO;
+using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Syntaxlyn.Core
 {
-    class CSharpHtmlWalker : CSharpSyntaxWalker
+    abstract class CSharpAsyncSyntaxWalker : CSharpSyntaxVisitor<Task>
     {
-        public CSharpHtmlWalker(BuildContext ctx, SemanticModel semanticModel, TextWriter writer)
-            : base(SyntaxWalkerDepth.StructuredTrivia)
+        public abstract Task VisitToken(SyntaxToken token);
+
+        public abstract Task VisitTrivia(SyntaxTrivia trivia);
+
+        public async Task VisitLeadingTrivia(SyntaxToken token)
         {
-            this.impl = new WalkerImpl(ctx, semanticModel, writer);
+            foreach (var t in token.LeadingTrivia)
+                await this.VisitTrivia(t).ConfigureAwait(false);
+        }
+
+        public async Task VisitTrailingTrivia(SyntaxToken token)
+        {
+            foreach (var t in token.TrailingTrivia)
+                await this.VisitTrivia(t).ConfigureAwait(false);
+        }
+
+        public override async Task DefaultVisit(SyntaxNode node)
+        {
+            foreach (var child in node.ChildNodesAndTokens())
+                await (child.IsNode ? this.Visit(child.AsNode()) : this.VisitToken(child.AsToken())).ConfigureAwait(false);
+        }
+    }
+
+    class CSharpHtmlWalker : CSharpAsyncSyntaxWalker
+    {
+        public CSharpHtmlWalker(BuildContext ctx, Document doc, SemanticModel semanticModel, TextWriter writer)
+        {
+            this.impl = new WalkerImpl(ctx, doc, semanticModel, writer);
         }
 
         private readonly WalkerImpl impl;
 
-        public override void VisitToken(SyntaxToken token)
+        public override async Task VisitToken(SyntaxToken token)
         {
-            base.VisitLeadingTrivia(token);
+            await this.VisitLeadingTrivia(token).ConfigureAwait(false);
 
             var kind = token.CSharpKind();
             if (token.IsKeyword() || SyntaxFacts.IsPreprocessorPunctuation(kind) || SyntaxFacts.IsPreprocessorKeyword(kind))
             {
-                this.impl.WriteKeyword(token);
+                await this.impl.WriteKeyword(token).ConfigureAwait(false);
             }
             else
             {
@@ -33,25 +58,25 @@ namespace Syntaxlyn.Core
                     case SyntaxKind.InterpolatedStringStartToken:
                     case SyntaxKind.InterpolatedStringMidToken:
                     case SyntaxKind.InterpolatedStringEndToken:
-                        this.impl.WriteString(token);
+                        await this.impl.WriteString(token).ConfigureAwait(false);
                         break;
                     case SyntaxKind.IdentifierToken:
-                        this.impl.WriteIdentifierToken(token);
+                        await this.impl.WriteIdentifierToken(token).ConfigureAwait(false);
                         break;
                     default:
-                        this.impl.Write(token);
+                        await this.impl.Write(token).ConfigureAwait(false);
                         break;
                 }
             }
 
-            base.VisitTrailingTrivia(token);
+            await this.VisitTrailingTrivia(token).ConfigureAwait(false);
         }
 
-        public override void VisitTrivia(SyntaxTrivia trivia)
+        public override Task VisitTrivia(SyntaxTrivia trivia)
         {
             if (trivia.IsDirective)
             {
-                this.Visit(trivia.GetStructure());
+                return this.Visit(trivia.GetStructure());
             }
             else
             {
@@ -61,31 +86,28 @@ namespace Syntaxlyn.Core
                     case SyntaxKind.SingleLineCommentTrivia:
                     case SyntaxKind.SingleLineDocumentationCommentTrivia:
                     case SyntaxKind.MultiLineDocumentationCommentTrivia:
-                        this.impl.WriteComment(trivia);
-                        break;
+                        return this.impl.WriteComment(trivia);
                     case SyntaxKind.DisabledTextTrivia:
-                        this.impl.WriteDisabledText(trivia);
-                        break;
+                        return this.impl.WriteDisabledText(trivia);
                     default:
-                        this.impl.Write(trivia);
-                        break;
+                        return this.impl.Write(trivia);
                 }
             }
         }
 
-        public override void VisitIdentifierName(IdentifierNameSyntax node)
+        public override async Task VisitIdentifierName(IdentifierNameSyntax node)
         {
-            this.impl.VisitIdentifierName(node);
-            base.VisitIdentifierName(node);
+            await this.impl.VisitIdentifierName(node).ConfigureAwait(false);
+            await base.VisitIdentifierName(node).ConfigureAwait(false);
         }
 
-        public override void VisitGenericName(GenericNameSyntax node)
+        public override async Task VisitGenericName(GenericNameSyntax node)
         {
-            this.impl.VisitIdentifierName(node);
-            base.VisitGenericName(node);
+            await this.impl.VisitIdentifierName(node).ConfigureAwait(false);
+            await base.VisitGenericName(node).ConfigureAwait(false);
         }
 
-        public override void DefaultVisit(SyntaxNode node)
+        public override async Task DefaultVisit(SyntaxNode node)
         {
             var isDecl = false;
             switch (node.CSharpKind())
@@ -96,7 +118,7 @@ namespace Syntaxlyn.Core
                 case SyntaxKind.InterfaceDeclaration:
                 case SyntaxKind.StructDeclaration:
                 case SyntaxKind.TypeParameter:
-                    this.impl.VisitTypeDeclaration(node);
+                    await this.impl.VisitTypeDeclaration(node).ConfigureAwait(false);
                     isDecl = true;
                     break;
                 case SyntaxKind.CatchDeclaration:
@@ -113,14 +135,14 @@ namespace Syntaxlyn.Core
                 case SyntaxKind.Parameter:
                 case SyntaxKind.VariableDeclarator:
                 case SyntaxKind.FromClause:
-                    this.impl.WriteDeclarationId(node);
+                    await this.impl.WriteDeclarationId(node).ConfigureAwait(false);
                     isDecl = true;
                     break;
             }
 
-            base.DefaultVisit(node);
+            await base.DefaultVisit(node).ConfigureAwait(false);
 
-            if (isDecl) this.impl.WriteEndDeclaration();
+            if (isDecl) await this.impl.WriteEndDeclaration().ConfigureAwait(false);
         }
     }
 }

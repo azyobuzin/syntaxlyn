@@ -1,27 +1,30 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 
 namespace Syntaxlyn.Core
 {
     class WalkerImpl
     {
-        internal WalkerImpl(BuildContext ctx, SemanticModel semanticModel, TextWriter writer)
+        internal WalkerImpl(BuildContext ctx, Document doc, SemanticModel semanticModel, TextWriter writer)
         {
             this.Context = ctx;
+            this.Document = doc;
             this.SemanticModel = semanticModel;
             this.Writer = writer;
         }
 
         internal BuildContext Context { get; private set; }
+        internal Document Document { get; private set; }
         internal SemanticModel SemanticModel { get; private set; }
         internal TextWriter Writer { get; private set; }
 
         private string startIdentifier;
         private string endIdentifier;
 
-        internal void VisitIdentifierName(SyntaxNode node)
+        internal async Task VisitIdentifierName(SyntaxNode node)
         {
             var symbol = this.SemanticModel.GetSymbolInfo(node).Symbol;
             if (symbol == null) return;
@@ -50,104 +53,104 @@ namespace Syntaxlyn.Core
             if (symbol.Kind != SymbolKind.Namespace)
             {
                 var syntaxRef = symbol.DeclaringSyntaxReferences.FirstOrDefault();
-                var doc = this.Context.Workspace.CurrentSolution.GetDocument(syntaxRef?.SyntaxTree);
+                var doc = this.Document.Project.Solution.GetDocument(syntaxRef?.SyntaxTree);
                 if (doc != null)
                 {
-                    this.startIdentifier += "<a href=\"../\{doc.Id.ProjectId.Id}/\{doc.Id.Id}.html#\{syntaxRef.GetSyntax().GetHashCode()}\">";
+                    this.startIdentifier += "<a href=\"\{WebUtility.HtmlEncode(await this.Context.uriFactory(this.Document, syntaxRef, doc).ConfigureAwait(false))}\">";
                     this.endIdentifier = "</a>" + this.endIdentifier;
                 }
             }
         }
 
-        internal void WriteRaw(string txt)
+        internal Task WriteRaw(string txt)
         {
-            this.Writer.Write(txt);
+            return this.Writer.WriteAsync(txt);
         }
 
-        internal void Write(string txt)
+        internal Task Write(string txt)
         {
-            this.WriteRaw(WebUtility.HtmlEncode(txt));
+            return this.WriteRaw(WebUtility.HtmlEncode(txt));
         }
 
-        internal void Write(SyntaxToken token)
+        internal Task Write(SyntaxToken token)
         {
-            this.Write(token.Text);
+            return this.Write(token.Text);
         }
 
-        internal void Write(SyntaxTrivia trivia)
+        internal Task Write(SyntaxTrivia trivia)
         {
-            this.Write(trivia.ToFullString());
+            return this.Write(trivia.ToFullString());
         }
 
-        internal void WriteKeyword(string txt)
+        internal Task WriteKeyword(string txt)
         {
-            this.WriteRaw("<span class=\"keyword\">\{WebUtility.HtmlEncode(txt)}</span>");
+            return this.WriteRaw("<span class=\"keyword\">\{WebUtility.HtmlEncode(txt)}</span>");
         }
 
-        internal void WriteKeyword(SyntaxToken token)
+        internal Task WriteKeyword(SyntaxToken token)
         {
-            this.WriteKeyword(token.Text);
+            return this.WriteKeyword(token.Text);
         }
 
-        internal void WriteString(string txt)
+        internal Task WriteString(string txt)
         {
-            this.WriteRaw("<span class=\"string\">\{WebUtility.HtmlEncode(txt)}</span>");
+            return this.WriteRaw("<span class=\"string\">\{WebUtility.HtmlEncode(txt)}</span>");
         }
 
-        internal void WriteString(SyntaxToken token)
+        internal Task WriteString(SyntaxToken token)
         {
-            this.WriteString(token.Text);
+            return this.WriteString(token.Text);
         }
 
-        internal void WriteIdentifierToken(SyntaxToken token)
+        internal async Task WriteIdentifierToken(SyntaxToken token)
         {
             var idTag = this.startIdentifier != null;
-            if (idTag) this.WriteRaw(this.startIdentifier);
-            this.Write(token.Text);
+            if (idTag) await this.WriteRaw(this.startIdentifier).ConfigureAwait(false);
+            await this.Write(token.Text).ConfigureAwait(false);
             if (idTag)
             {
-                this.WriteRaw(this.endIdentifier);
+                await this.WriteRaw(this.endIdentifier).ConfigureAwait(false);
                 this.startIdentifier = null;
                 this.endIdentifier = null;
             }
         }
 
-        internal void WriteComment(string txt)
+        internal Task WriteComment(string txt)
         {
-            this.WriteRaw("<span class=\"comment\">\{WebUtility.HtmlEncode(txt)}</span>");
+            return this.WriteRaw("<span class=\"comment\">\{WebUtility.HtmlEncode(txt)}</span>");
         }
 
-        internal void WriteComment(SyntaxTrivia trivia)
+        internal Task WriteComment(SyntaxTrivia trivia)
         {
-            this.WriteComment(trivia.ToFullString());
+            return this.WriteComment(trivia.ToFullString());
         }
 
-        internal void WriteDisabledText(string txt)
+        internal Task WriteDisabledText(string txt)
         {
-            this.WriteRaw("<span class=\"disabled\">\{WebUtility.HtmlEncode(txt)}</span>");
+            return this.WriteRaw("<span class=\"disabled\">\{WebUtility.HtmlEncode(txt)}</span>");
         }
 
-        internal void WriteDisabledText(SyntaxTrivia trivia)
+        internal Task WriteDisabledText(SyntaxTrivia trivia)
         {
-            this.WriteDisabledText(trivia.ToFullString());
+            return this.WriteDisabledText(trivia.ToFullString());
         }
 
-        internal void WriteDeclarationId(SyntaxNode node)
+        internal Task WriteDeclarationId(SyntaxNode node)
         {
-            this.WriteRaw("<span id=\"\{node.GetHashCode()}\">");
+            return this.WriteRaw("<span id=\"\{node.GetHashCode()}\">");
         }
 
-        internal void VisitTypeDeclaration(SyntaxNode node)
+        internal Task VisitTypeDeclaration(SyntaxNode node)
         {
-            this.WriteDeclarationId(node);
-
             this.startIdentifier = @"<span class=""type"">";
             this.endIdentifier = "</span>";
+
+            return this.WriteDeclarationId(node);
         }
 
-        internal void WriteEndDeclaration()
+        internal Task WriteEndDeclaration()
         {
-            this.WriteRaw("</span>");
+            return this.WriteRaw("</span>");
         }
     }
 }
