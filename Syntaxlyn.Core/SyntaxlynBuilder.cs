@@ -11,36 +11,43 @@ namespace Syntaxlyn.Core
     public delegate Task WriterFactory(Document doc, Func<TextWriter, Task> write);
     public delegate Task<string> UriFactory(Document workingDoc, SyntaxReference syntaxRef, Document doc);
 
-    public class BuildContext
+    public class SyntaxlynBuilder
     {
-        private BuildContext() { }
-
-        internal MSBuildWorkspace Workspace { get; } = MSBuildWorkspace.Create();
-        private IEnumerable<string> files;
-
-        private WriterFactory writerFactory;
-        internal UriFactory uriFactory;
-
-        public static Task BuildAsync(IEnumerable<string> files, WriterFactory writerFactory, UriFactory uriFactory)
+        private SyntaxlynBuilder(WriterFactory writerFactory, UriFactory uriFactory)
         {
             if (writerFactory == null) throw new ArgumentNullException("writerFactory");
             if (uriFactory == null) throw new ArgumentNullException("uriFactory");
 
-            return new BuildContext() { files = files, writerFactory = writerFactory, uriFactory = uriFactory }.BuildAsync();
+            this.writerFactory = writerFactory;
+            this.uriFactory = uriFactory;
         }
 
-        private async Task BuildAsync()
+        private readonly WriterFactory writerFactory;
+        internal readonly UriFactory uriFactory;
+
+        public static Task BuildAsync(IEnumerable<string> files, WriterFactory writerFactory, UriFactory uriFactory)
         {
-            foreach (var file in this.files)
+            return new SyntaxlynBuilder(writerFactory, uriFactory).BuildAsync(files);
+        }
+
+        public static Task BuildProjectAsync(Project proj, WriterFactory writerFactory, UriFactory uriFactory)
+        {
+            return new SyntaxlynBuilder(writerFactory, uriFactory).BuildProjectAsync(proj);
+        }
+
+        private async Task BuildAsync(IEnumerable<string> files)
+        {
+            var workspace = MSBuildWorkspace.Create();
+            foreach (var file in files)
             {
                 if (Path.GetExtension(file).ToLowerInvariant() == ".sln")
                 {
-                    var solution = await this.Workspace.OpenSolutionAsync(file).ConfigureAwait(false);
+                    var solution = await workspace.OpenSolutionAsync(file).ConfigureAwait(false);
                     await Task.WhenAll(solution.Projects.Select(this.BuildProjectAsync)).ConfigureAwait(false);
                 }
                 else
                 {
-                    await this.BuildProjectAsync(await this.Workspace.OpenProjectAsync(file).ConfigureAwait(false));
+                    await this.BuildProjectAsync(await workspace.OpenProjectAsync(file).ConfigureAwait(false));
                 }
             }
         }
@@ -64,8 +71,8 @@ namespace Syntaxlyn.Core
                 .Select(async doc =>
                 {
                     var semanticModel = await doc.GetSemanticModelAsync().ConfigureAwait(false);
-
                     var root = await semanticModel.SyntaxTree.GetRootAsync().ConfigureAwait(false);
+
                     await this.writerFactory(doc, writer => isCSharp
                         ? new CSharpHtmlWalker(this, doc, semanticModel, writer).Visit(root)
                         : new VisualBasicHtmlWalker(this, doc, semanticModel, writer).Visit(root)

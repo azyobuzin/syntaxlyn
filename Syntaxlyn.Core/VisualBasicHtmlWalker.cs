@@ -33,7 +33,7 @@ namespace Syntaxlyn.Core
 
     class VisualBasicHtmlWalker : VisualBasicAsyncSyntaxWalker
     {
-        public VisualBasicHtmlWalker(BuildContext ctx, Document doc, SemanticModel semanticModel, TextWriter writer)
+        public VisualBasicHtmlWalker(SyntaxlynBuilder ctx, Document doc, SemanticModel semanticModel, TextWriter writer)
         {
             this.impl = new WalkerImpl(ctx, doc, semanticModel, writer);
         }

@@ -101,7 +101,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BuildContext.cs" />
+    <Compile Include="SyntaxlynBuilder.cs" />
     <Compile Include="CSharpHtmlWalker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VisualBasicHtmlWalker.cs" />

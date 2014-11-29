@@ -20,7 +20,7 @@ namespace Syntaxlyn.Cmd
                     Path.Combine(outDir.FullName, "style.css"),
                     true
                 );
-                BuildContext.BuildAsync(args, CreateTextWriter, CreateLinkUri).Wait();
+                SyntaxlynBuilder.BuildAsync(args, CreateTextWriter, CreateLinkUri).Wait();
             }
             catch (Exception ex)
             {

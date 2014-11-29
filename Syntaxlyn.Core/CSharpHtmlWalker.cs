@@ -33,7 +33,7 @@ namespace Syntaxlyn.Core
 
     class CSharpHtmlWalker : CSharpAsyncSyntaxWalker
     {
-        public CSharpHtmlWalker(BuildContext ctx, Document doc, SemanticModel semanticModel, TextWriter writer)
+        public CSharpHtmlWalker(SyntaxlynBuilder ctx, Document doc, SemanticModel semanticModel, TextWriter writer)
         {
             this.impl = new WalkerImpl(ctx, doc, semanticModel, writer);
         }

@@ -8,7 +8,7 @@ namespace Syntaxlyn.Core
 {
     class WalkerImpl
     {
-        internal WalkerImpl(BuildContext ctx, Document doc, SemanticModel semanticModel, TextWriter writer)
+        internal WalkerImpl(SyntaxlynBuilder ctx, Document doc, SemanticModel semanticModel, TextWriter writer)
         {
             this.Context = ctx;
             this.Document = doc;
@@ -16,7 +16,7 @@ namespace Syntaxlyn.Core
             this.Writer = writer;
         }
 
-        internal BuildContext Context { get; private set; }
+        internal SyntaxlynBuilder Context { get; private set; }
         internal Document Document { get; private set; }
         internal SemanticModel SemanticModel { get; private set; }
         internal TextWriter Writer { get; private set; }
