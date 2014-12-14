@@ -1,0 +1,73 @@
+﻿body {
+    font-family: Meiryo, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+
+html, body {
+    height: 100%;
+}
+
+#left {
+    width: 350px;
+    height: 100%;
+    overflow: scroll;
+    float: left;
+}
+
+#right {
+    height: 100%;
+    overflow: scroll;
+    margin-left: 350px;
+}
+
+#left-header {
+    margin: 15px;
+}
+
+#repo {
+    font-size: 16pt;
+}
+
+#sha {
+    margin-left: 3px;
+}
+
+#left-ad {
+    margin: 0 auto 15px auto;
+    max-width: 300px;
+    max-height: 250px;
+}
+
+#right-header {
+    background-color: rgba(255, 255, 255, 0.60);
+    position: fixed;
+    top: 0;
+}
+
+#left-of-right-ad {
+    float: left;
+    padding: 15px;
+}
+
+#filename {
+    font-size: 12pt;
+}
+
+#right-ad {
+    max-width: 468px;
+    max-height: 60px;
+    float: right;
+}
+
+#source {
+    background-color: white;
+    border-width: 0;
+    font-family: Consolas, Meiryo, monospace;
+    font-size: 11pt;
+    margin-top: 90px;
+    -ms-word-wrap: initial;
+    word-wrap: initial;
+    overflow: visible;
+}

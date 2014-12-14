@@ -1,0 +1,33 @@
+﻿@model Syntaxlyn.Web.Models.PendingViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Now Building...</title>
+    <meta name="robots" content="noindex" />
+    @Styles.Render("~/bundles/bootstrapcss")
+    @Styles.Render("~/Content/PendingCss")
+</head>
+<body>
+    <div id="container">
+        <p id="text">Please wait while we are building pages. If it never becomes completed, reload me.</p>
+        <div class="progress">
+            <div id="progressbar" class="progress-bar progress-bar-striped active" role="progressbar">
+            </div>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrapjs")
+    @Scripts.Render("~/bundles/signalr")
+    @Scripts.Render("~/bundles/Pending")
+    <script src="~/signalr/hubs"></script>
+    <script>
+        startReceiving("@Model.Service", "@Model.User", "@Model.Repo", "@Model.Sha");
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+﻿@model Syntaxlyn.Web.Models.BuildResultEntity
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Syntaxlyn</title>
+    <meta name="robots" content="noindex" />
+    <meta name="viewport" content="width=device-width" />
+    <style>
+        body {
+            margin: 100px 15px;
+            text-align: center;
+        }
+        h1 {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Build Failed</h1>
+    <pre>@Model.Error</pre>
+    @using (Html.BeginForm("RebuildGitHub", "SourceView"))
+    {
+        <p><button type="submit">Retry</button></p>
+    }
+</body>
+</html>

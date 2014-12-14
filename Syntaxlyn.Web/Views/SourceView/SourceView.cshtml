@@ -1,0 +1,460 @@
+﻿@model Syntaxlyn.Web.Models.SourceViewViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Syntaxlyn</title>
+    <meta name="robots" content="noindex" />
+    @Styles.Render("~/bundles/bootstrapcss")
+    @Styles.Render("~/Content/SourceViewCss")
+</head>
+<body>
+    <div id="left">
+        <div id="left-header">
+            <div id="repo">azyobuzin/test</div>
+            <div><span class="glyphicon glyphicon-time" aria-hidden="true"></span><span id="sha">f85f3d8601</span></div>
+        </div>
+
+        <div id="left-ad">
+            @Html.Partial("../Ads/AdW300")
+        </div>
+
+        <div role="tabpanel">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="#files" role="tab" data-toggle="tab">Files</a></li>
+                <li><a href="#solutions" role="tab" data-toggle="tab">Solutions</a></li>
+                <li><a href="#projects" role="tab" data-toggle="tab">Projects</a></li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="files">
+                    <ul>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                        <li>test1</li>
+                        <li>test2</li>
+                    </ul>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="solutions">
+                    <ul>
+                        <li>test3</li>
+                        <li>test4</li>
+                    </ul>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="projects">
+                    <ul>
+                        <li>test5</li>
+                        <li>test6</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="right">
+        <div id="right-header">
+            <div id="left-of-right-ad">
+                <div id="filename">
+                    <select>
+                        <option value="projectid">TestProject</option>
+                    </select>
+                    / Test.cs
+                </div>
+            </div>
+            <div id="right-ad">
+                @Html.Partial("../Ads/AdW468")
+            </div>
+        </div>
+
+        <pre id="source"><span class="comment">// The MIT License (MIT)</span>
+<span class="comment">//</span>
+<span class="comment">// CoreTweet - A .NET Twitter Library supporting Twitter API 1.1</span>
+<span class="comment">// Copyright (c) 2014 lambdalice</span>
+<span class="comment">//</span>
+<span class="comment">// Permission is hereby granted, free of charge, to any person obtaining a copy</span>
+<span class="comment">// of this software and associated documentation files (the "Software"), to deal</span>
+<span class="comment">// in the Software without restriction, including without limitation the rights</span>
+<span class="comment">// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
+<span class="comment">// copies of the Software, and to permit persons to whom the Software is</span>
+<span class="comment">// furnished to do so, subject to the following conditions:</span>
+<span class="comment">//</span>
+<span class="comment">// The above copyright notice and this permission notice shall be included in</span>
+<span class="comment">// all copies or substantial portions of the Software.</span>
+<span class="comment">//</span>
+<span class="comment">// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
+<span class="comment">// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
+<span class="comment">// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
+<span class="comment">// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
+<span class="comment">// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span>
+<span class="comment">// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN</span>
+<span class="comment">// THE SOFTWARE.</span>
+<span class="keyword">using</span> <span class="identifier" title="System">System</span>;
+<span class="keyword">using</span> <span class="identifier" title="System">System</span>.<span class="identifier" title="System.Collections">Collections</span>.<span class="identifier" title="System.Collections.Generic">Generic</span>;
+<span class="keyword">using</span> <span class="identifier" title="System">System</span>.<span class="identifier" title="System.IO">IO</span>;
+<span class="keyword">using</span> <span class="identifier" title="System">System</span>.<span class="identifier" title="System.Linq">Linq</span>;
+<span class="keyword">using</span> <span class="identifier" title="System">System</span>.<span class="identifier" title="System.Net">Net</span>;
+<span class="keyword">using</span> <span class="identifier" title="System">System</span>.<span class="identifier" title="System.Text">Text</span>;
+<span class="keyword">using</span> <span class="identifier" title="Newtonsoft">Newtonsoft</span>.<span class="identifier" title="Newtonsoft.Json">Json</span>.<span class="identifier" title="Newtonsoft.Json.Linq">Linq</span>;
+
+<span class="keyword">namespace</span> <span class="identifier" title="CoreTweet">CoreTweet</span>
+{
+<span id="25226950">    <span class="xmlcomment">///<span class="comment"> </span>&lt;summary&gt;
+    ///<span class="comment"> Provides a set of static (Shared in Visual Basic) methods for OAuth authentication.</span>
+    ///<span class="comment"> </span>&lt;/summary&gt;
+</span>    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">partial</span> <span class="keyword">class</span> <span class="type">OAuth</span>
+    {
+<span id="11179691">        <span class="xmlcomment">///<span class="comment"> </span>&lt;summary&gt;
+        ///<span class="comment"> Represents an OAuth session.</span>
+        ///<span class="comment"> </span>&lt;/summary&gt;
+</span>        <span class="keyword">public</span> <span class="keyword">class</span> <span class="type">OAuthSession</span>
+        {
+<span id="53052902">            <span class="xmlcomment">///<span class="comment"> </span>&lt;summary&gt;
+            ///<span class="comment"> Gets or sets the consumer key.</span>
+            ///<span class="comment"> </span>&lt;/summary&gt;
+</span>            <span class="keyword">public</span> <span class="keyword">string</span> ConsumerKey { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+</span><span id="54944177">
+            <span class="xmlcomment">///<span class="comment"> </span>&lt;summary&gt;
+            ///<span class="comment"> Gets or sets the consumer secret.</span>
+            ///<span class="comment"> </span>&lt;/summary&gt;
+</span>            <span class="keyword">public</span> <span class="keyword">string</span> ConsumerSecret { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+</span><span id="25373767">
+            <span class="xmlcomment">///<span class="comment"> </span>&lt;summary&gt;
+            ///<span class="comment"> Gets or sets the request token.</span>
+            ///<span class="comment"> </span>&lt;/summary&gt;
+</span>            <span class="keyword">public</span> <span class="keyword">string</span> RequestToken { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+</span><span id="17604292">
+            <span class="xmlcomment">///<span class="comment"> </span>&lt;summary&gt;
+            ///<span class="comment"> Gets or sets the request token secret.</span>
+            ///<span class="comment"> </span>&lt;/summary&gt;
+</span>            <span class="keyword">public</span> <span class="keyword">string</span> RequestTokenSecret { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+</span><span id="22918075">
+            <span class="xmlcomment">///<span class="comment"> </span>&lt;summary&gt;
+            ///<span class="comment"> Gets or sets the options of the connection.</span>
+            ///<span class="comment"> </span>&lt;/summary&gt;
+</span>            <span class="keyword">public</span> <span class="type" title="CoreTweet.ConnectionOptions"><a href="../CoreTweet/ConnectionOptions.cs.html#38254418">ConnectionOptions</a></span> ConnectionOptions { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+</span><span id="58311506">
+            <span class="xmlcomment">///<span class="comment"> </span>&lt;summary&gt;
+            ///<span class="comment"> Gets the authorize URL.</span>
+            ///<span class="comment"> </span>&lt;/summary&gt;
+</span>            <span class="keyword">public</span> <span class="type" title="System.Uri">Uri</span> AuthorizeUri
+            {
+                <span class="keyword">get</span>
+                {
+                    <span class="keyword">return</span> <span class="keyword">new</span> <span class="type" title="System.Uri">Uri</span>(<span class="identifier" title="string OAuth.AuthorizeUrl"><a href="../CoreTweet/OAuth.cs.html#42182483">AuthorizeUrl</a></span> + <span class="string">"?oauth_token="</span> + <span class="identifier" title="string OAuthSession.RequestToken"><a href="../CoreTweet/OAuth.cs.html#25373767">RequestToken</a></span>);
+                }
+            }
+</span>        }
+</span><span id="34487932">
+        <span class="keyword">static</span> <span class="keyword">readonly</span> <span id="1088256"><span class="keyword">string</span> <span id="34504891">RequestTokenUrl = <span class="string">"https://api.twitter.com/oauth/request_token"</span></span></span>;
+</span><span id="51511128">        <span class="keyword">static</span> <span class="keyword">readonly</span> <span id="44677303"><span class="keyword">string</span> <span id="66526701">AccessTokenUrl = <span class="string">"https://api.twitter.com/oauth/access_token"</span></span></span>;
+</span><span id="37987822">        <span class="keyword">static</span> <span class="keyword">readonly</span> <span id="47031940"><span class="keyword">string</span> <span id="42182483">AuthorizeUrl = <span class="string">"https://api.twitter.com/oauth/authorize"</span></span></span>;
+</span><span id="26207796">
+<span class="keyword">#</span><span class="keyword">if</span> !(PCL || WIN_RT || WP)
+        <span class="xmlcomment">///<span class="comment"> </span>&lt;summary&gt;
+        ///<span class="comment"> </span>&lt;para&gt;<span class="comment">Generates the authorize URI.</span>&lt;/para&gt;
+        ///<span class="comment"> </span>&lt;para&gt;<span class="comment">Then call </span>&lt;see cref="<span class="identifier"><span class="identifier" title="CoreTweet">CoreTweet</span>.<span class="type" title="CoreTweet.OAuth"><a href="../CoreTweet/OAuth.Async.cs.html#4803146">OAuth</a></span>.<span class="identifier" title="Tokens OAuth.GetTokens(OAuthSession session, string pin)"><a href="../CoreTweet/OAuth.cs.html#42735439">GetTokens</a></span></span>"/&gt;<span class="comment"> after get the pin code.</span>&lt;/para&gt;
+        ///<span class="comment"> </span>&lt;/summary&gt;
+        ///<span class="comment"> </span>&lt;param name="<span class="identifier" title="string consumerKey"><a href="../CoreTweet/OAuth.cs.html#61199427">consumerKey</a></span>"&gt;<span class="comment">The Consumer key.</span>&lt;/param&gt;
+        ///<span class="comment"> </span>&lt;param name="<span class="identifier" title="string consumerSecret"><a href="../CoreTweet/OAuth.cs.html#26960047">consumerSecret</a></span>"&gt;<span class="comment">The Consumer secret.</span>&lt;/param&gt;
+        ///<span class="comment"> </span>&lt;param name="<span class="identifier" title="string oauthCallback = &quot;oob&quot;"><a href="../CoreTweet/OAuth.cs.html#52964068">oauthCallback</a></span>"&gt;
+        ///<span class="comment"> </span>&lt;para&gt;<span class="comment">For OAuth 1.0a compliance this parameter is required.</span>&lt;/para&gt;
+        ///<span class="comment"> </span>&lt;para&gt;<span class="comment">The value you specify here will be used as the URL a user is redirected to should they approve your application's access to their account.</span>&lt;/para&gt;
+        ///<span class="comment"> </span>&lt;para&gt;<span class="comment">Set this to oob for out-of-band pin mode.</span>&lt;/para&gt;
+        ///<span class="comment"> </span>&lt;para&gt;<span class="comment">This is also how you specify custom callbacks for use in desktop/mobile applications.</span>&lt;/para&gt;
+        ///<span class="comment"> </span>&lt;para&gt;<span class="comment">Always send an oauth_callback on this step, regardless of a pre-registered callback.</span>&lt;/para&gt;
+        ///<span class="comment"> </span>&lt;/param&gt;
+        ///<span class="comment"> </span>&lt;param name="<span class="identifier" title="CoreTweet.ConnectionOptions options = null"><a href="../CoreTweet/OAuth.cs.html#1721118">options</a></span>"&gt;<span class="comment">The connection options for the request.</span>&lt;/param&gt;
+        ///<span class="comment"> </span>&lt;returns&gt;<span class="comment">The authorize URI.</span>&lt;/returns&gt;
+</span>        <span class="keyword">public</span> <span class="keyword">static</span> <span class="type" title="CoreTweet.OAuth.OAuthSession"><a href="../CoreTweet/OAuth.cs.html#11179691">OAuthSession</a></span> Authorize(<span id="61199427"><span class="keyword">string</span> consumerKey</span>, <span id="26960047"><span class="keyword">string</span> consumerSecret</span>, <span id="52964068"><span class="keyword">string</span> oauthCallback = <span class="string">"oob"</span></span>, <span id="1721118"><span class="type" title="CoreTweet.ConnectionOptions"><a href="../CoreTweet/ConnectionOptions.cs.html#38254418">ConnectionOptions</a></span> options = <span class="keyword">null</span></span>)
+        {
+<span id="53384159">            <span class="comment">// Note: Twitter says,</span>
+            <span class="comment">// "If you're using HTTP-header based OAuth, you shouldn't include oauth_* parameters in the POST body or querystring."</span>
+            <span class="keyword" title="System.Collections.Generic.Dictionary<string, object>">var</span> <span id="38376576">prm = <span class="keyword">new</span> <span class="type" title="System.Collections.Generic.Dictionary<string, object>">Dictionary</span>&lt;<span class="keyword">string</span>,<span class="keyword">object</span>&gt;()</span></span>;
+            <span class="keyword">if</span>(!<span class="keyword">string</span>.<span class="identifier" title="bool string.IsNullOrEmpty(string value)">IsNullOrEmpty</span>(<span class="identifier" title="string oauthCallback = &quot;oob&quot;"><a href="../CoreTweet/OAuth.cs.html#52964068">oauthCallback</a></span>))
+                <span class="identifier" title="Dictionary<string, object> prm"><a href="../CoreTweet/OAuth.cs.html#38376576">prm</a></span>.<span class="identifier" title="void Dictionary<string, object>.Add(string key, object value)">Add</span>(<span class="string">"oauth_callback"</span>, <span class="identifier" title="string oauthCallback = &quot;oob&quot;"><a href="../CoreTweet/OAuth.cs.html#52964068">oauthCallback</a></span>);
+<span id="34961831">            <span class="keyword" title="string">var</span> <span id="38974772">header = <span class="type" title="CoreTweet.Tokens"><a href="../CoreTweet/Objects/Tokens.cs.html#4030420">Tokens</a></span>.<span class="identifier" title="Tokens Tokens.Create(string consumerKey, string consumerSecret, string accessToken, string accessSecret, long userID = 0, string screenName = null)"><a href="../CoreTweet/Objects/Tokens.cs.html#44767477">Create</a></span>(<span class="identifier" title="string consumerKey"><a href="../CoreTweet/OAuth.cs.html#61199427">consumerKey</a></span>, <span class="identifier" title="string consumerSecret"><a href="../CoreTweet/OAuth.cs.html#26960047">consumerSecret</a></span>, <span class="keyword">null</span>, <span class="keyword">null</span>)
+                .<span class="identifier" title="string Tokens.CreateAuthorizationHeader(MethodType type, string url, IEnumerable<KeyValuePair<string, object>> parameters)"><a href="../CoreTweet/Objects/Tokens.cs.html#25899004">CreateAuthorizationHeader</a></span>(<span class="type" title="CoreTweet.MethodType"><a href="../CoreTweet/Request.cs.html#11067177">MethodType</a></span>.<span class="identifier" title="MethodType.Get"><a href="../CoreTweet/Request.cs.html#31414552">Get</a></span>, <span class="identifier" title="string OAuth.RequestTokenUrl"><a href="../CoreTweet/OAuth.cs.html#34504891">RequestTokenUrl</a></span>, <span class="identifier" title="Dictionary<string, object> prm"><a href="../CoreTweet/OAuth.cs.html#38376576">prm</a></span>)</span></span>;
+            <span class="keyword">try</span>
+            {
+<span id="11302700">                <span class="keyword" title="System.Collections.Generic.Dictionary<string, string>">var</span> <span id="56243462">dic = <span id="21647938"><span class="keyword">from</span> x <span class="keyword">in</span> <span class="type" title="CoreTweet.Request"><a href="../CoreTweet/Request.Async.cs.html#37126617">Request</a></span>.<span class="identifier" title="HttpWebResponse Request.HttpGet(string url, IEnumerable<KeyValuePair<string, object>> prm, string authorizationHeader, ConnectionOptions options)"><a href="../CoreTweet/Request.cs.html#2549077">HttpGet</a></span>(<span class="identifier" title="string OAuth.RequestTokenUrl"><a href="../CoreTweet/OAuth.cs.html#34504891">RequestTokenUrl</a></span>, <span class="identifier" title="Dictionary<string, object> prm"><a href="../CoreTweet/OAuth.cs.html#38376576">prm</a></span>, <span class="identifier" title="string header"><a href="../CoreTweet/OAuth.cs.html#38974772">header</a></span>, <span class="identifier" title="ConnectionOptions options = null"><a href="../CoreTweet/OAuth.cs.html#1721118">options</a></span>).<span class="identifier" title="DisposableExtensions.Using<HttpWebResponse> HttpWebResponse.Use<HttpWebResponse>()"><a href="../CoreTweet/Internal/Extensions.cs.html#9414013">Use</a></span>()
+</span><span id="6355381">                          <span class="keyword">from</span> y <span class="keyword">in</span> <span class="keyword">new</span> <span class="type" title="System.IO.StreamReader">StreamReader</span>(<span class="identifier" title="HttpWebResponse x"><a href="../CoreTweet/OAuth.cs.html#21647938">x</a></span>.<span class="identifier" title="Stream HttpWebResponse.GetResponseStream()">GetResponseStream</span>()).<span class="identifier" title="DisposableExtensions.Using<StreamReader> StreamReader.Use<StreamReader>()"><a href="../CoreTweet/Internal/Extensions.cs.html#9414013">Use</a></span>()
+</span>                          <span class="keyword">select</span> <span class="identifier" title="StreamReader y"><a href="../CoreTweet/OAuth.cs.html#6355381">y</a></span>.<span class="identifier" title="string StreamReader.ReadToEnd()">ReadToEnd</span>()
+                                  .<span class="identifier" title="string[] string.Split(params char[] separator)">Split</span>(<span class="string">'&amp;'</span>)
+                                  .<span class="identifier" title="IEnumerable<string> IEnumerable<string>.Where<string>(Func<string, bool> predicate)">Where</span>(<span id="55819290">z </span>=&gt; <span class="identifier" title="string z"><a href="../CoreTweet/OAuth.cs.html#55819290">z</a></span>.<span class="identifier" title="bool IEnumerable<char>.Contains<char>(char value)">Contains</span>(<span class="string">'='</span>))
+                                  .<span class="identifier" title="IEnumerable<string[]> IEnumerable<string>.Select<string, string[]>(Func<string, string[]> selector)">Select</span>(<span id="21116708">z </span>=&gt; <span class="identifier" title="string z"><a href="../CoreTweet/OAuth.cs.html#21116708">z</a></span>.<span class="identifier" title="string[] string.Split(params char[] separator)">Split</span>(<span class="string">'='</span>))
+                                  .<span class="identifier" title="Dictionary<string, string> IEnumerable<string[]>.ToDictionary<string[], string, string>(Func<string[], string> keySelector, Func<string[], string> elementSelector)">ToDictionary</span>(<span id="61533429">z </span>=&gt; <span class="identifier" title="string[] z"><a href="../CoreTweet/OAuth.cs.html#61533429">z</a></span>[0], <span id="63366330">z </span>=&gt; <span class="identifier" title="string[] z"><a href="../CoreTweet/OAuth.cs.html#63366330">z</a></span>[1])</span></span>;
+                <span class="keyword">return</span> <span class="keyword">new</span> <span class="type" title="CoreTweet.OAuth.OAuthSession"><a href="../CoreTweet/OAuth.cs.html#11179691">OAuthSession</a></span>()
+                {
+                    <span class="identifier" title="string OAuthSession.RequestToken"><a href="../CoreTweet/OAuth.cs.html#25373767">RequestToken</a></span> = <span class="identifier" title="Dictionary<string, string> dic"><a href="../CoreTweet/OAuth.cs.html#56243462">dic</a></span>[<span class="string">"oauth_token"</span>],
+                    <span class="identifier" title="string OAuthSession.RequestTokenSecret"><a href="../CoreTweet/OAuth.cs.html#17604292">RequestTokenSecret</a></span> = <span class="identifier" title="Dictionary<string, string> dic"><a href="../CoreTweet/OAuth.cs.html#56243462">dic</a></span>[<span class="string">"oauth_token_secret"</span>],
+                    <span class="identifier" title="string OAuthSession.ConsumerKey"><a href="../CoreTweet/OAuth.cs.html#53052902">ConsumerKey</a></span> = <span class="identifier" title="string consumerKey"><a href="../CoreTweet/OAuth.cs.html#61199427">consumerKey</a></span>,
+                    <span class="identifier" title="string OAuthSession.ConsumerSecret"><a href="../CoreTweet/OAuth.cs.html#54944177">ConsumerSecret</a></span> = <span class="identifier" title="string consumerSecret"><a href="../CoreTweet/OAuth.cs.html#26960047">consumerSecret</a></span>,
+                    <span class="identifier" title="ConnectionOptions OAuthSession.ConnectionOptions"><a href="../CoreTweet/OAuth.cs.html#22918075">ConnectionOptions</a></span> = <span class="identifier" title="ConnectionOptions options = null"><a href="../CoreTweet/OAuth.cs.html#1721118">options</a></span>
+                };
+            }
+            <span class="keyword">catch</span><span id="10958291">(<span class="type" title="System.Net.WebException">WebException</span> ex)
+</span>            {
+<span id="59180533">                <span class="keyword" title="CoreTweet.TwitterException"><a href="../CoreTweet/Exceptions.cs.html#61904524">var</a></span> <span id="8227161">tex = <span class="type" title="CoreTweet.TwitterException"><a href="../CoreTweet/Exceptions.cs.html#61904524">TwitterException</a></span>.<span class="identifier" title="TwitterException TwitterException.Create(WebException ex)"><a href="../CoreTweet/Exceptions.cs.html#36706801">Create</a></span>(<span class="identifier" title="WebException ex"><a href="../CoreTweet/OAuth.cs.html#10958291">ex</a></span>)</span></span>;
+                <span class="keyword">if</span>(<span class="identifier" title="TwitterException tex"><a href="../CoreTweet/OAuth.cs.html#8227161">tex</a></span> != <span class="keyword">null</span>)
+                    <span class="keyword">throw</span> <span class="identifier" title="TwitterException tex"><a href="../CoreTweet/OAuth.cs.html#8227161">tex</a></span>;
+                <span class="keyword">throw</span>;
+            }
+        }
+</span><span id="42735439">
+        <span class="xmlcomment">///<span class="comment"> </span>&lt;summary&gt;
+        ///<span class="comment"> </span>&lt;para&gt;<span class="comment">Gets the OAuth tokens.</span>&lt;/para&gt;
+        ///<span class="comment"> </span>&lt;para&gt;<span class="comment">Be sure to call </span>&lt;see cref="<span class="identifier"><span class="identifier" title="CoreTweet">CoreTweet</span>.<span class="type" title="CoreTweet.OAuth"><a href="../CoreTweet/OAuth.Async.cs.html#4803146">OAuth</a></span>.<span class="identifier" title="OAuthSession OAuth.Authorize(string consumerKey, string consumerSecret, string oauthCallback = &quot;oob&quot;, ConnectionOptions options = null)"><a href="../CoreTweet/OAuth.cs.html#26207796">Authorize</a></span></span>"/&gt;<span class="comment"> before call this method.</span>&lt;/para&gt;
+        ///<span class="comment"> </span>&lt;/summary&gt;
+        ///<span class="comment"> </span>&lt;param name="<span class="identifier" title="CoreTweet.OAuth.OAuthSession session"><a href="../CoreTweet/OAuth.cs.html#15423512">session</a></span>"&gt;<span class="comment">The OAuth session.</span>&lt;/param&gt;
+        ///<span class="comment"> </span>&lt;param name="<span class="identifier" title="string pin"><a href="../CoreTweet/OAuth.cs.html#3441282">pin</a></span>"&gt;<span class="comment">The pin code.</span>&lt;/param&gt;
+        ///<span class="comment"> </span>&lt;returns&gt;<span class="comment">The tokens.</span>&lt;/returns&gt;
+</span>        <span class="keyword">public</span> <span class="keyword">static</span> <span class="type" title="CoreTweet.Tokens"><a href="../CoreTweet/Objects/Tokens.cs.html#4030420">Tokens</a></span> GetTokens(<span id="15423512"><span class="keyword">this</span> <span class="type" title="CoreTweet.OAuth.OAuthSession"><a href="../CoreTweet/OAuth.cs.html#11179691">OAuthSession</a></span> session</span>, <span id="3441282"><span class="keyword">string</span> pin</span>)
+        {
+<span id="39555521">            <span class="keyword" title="System.Collections.Generic.Dictionary<string, object>">var</span> <span id="34091724">prm = <span class="keyword">new</span> <span class="type" title="System.Collections.Generic.Dictionary<string, object>">Dictionary</span>&lt;<span class="keyword">string</span>,<span class="keyword">object</span>&gt;() { { <span class="string">"oauth_verifier"</span>, <span class="identifier" title="string pin"><a href="../CoreTweet/OAuth.cs.html#3441282">pin</a></span> } }</span></span>;
+<span id="57918127">            <span class="keyword" title="string">var</span> <span id="54002971">header = <span class="type" title="CoreTweet.Tokens"><a href="../CoreTweet/Objects/Tokens.cs.html#4030420">Tokens</a></span>.<span class="identifier" title="Tokens Tokens.Create(string consumerKey, string consumerSecret, string accessToken, string accessSecret, long userID = 0, string screenName = null)"><a href="../CoreTweet/Objects/Tokens.cs.html#44767477">Create</a></span>(<span class="identifier" title="OAuthSession session"><a href="../CoreTweet/OAuth.cs.html#15423512">session</a></span>.<span class="identifier" title="string OAuthSession.ConsumerKey"><a href="../CoreTweet/OAuth.cs.html#53052902">ConsumerKey</a></span>, <span class="identifier" title="OAuthSession session"><a href="../CoreTweet/OAuth.cs.html#15423512">session</a></span>.<span class="identifier" title="string OAuthSession.ConsumerSecret"><a href="../CoreTweet/OAuth.cs.html#54944177">ConsumerSecret</a></span>, <span class="identifier" title="OAuthSession session"><a href="../CoreTweet/OAuth.cs.html#15423512">session</a></span>.<span class="identifier" title="string OAuthSession.RequestToken"><a href="../CoreTweet/OAuth.cs.html#25373767">RequestToken</a></span>, <span class="identifier" title="OAuthSession session"><a href="../CoreTweet/OAuth.cs.html#15423512">session</a></span>.<span class="identifier" title="string OAuthSession.RequestTokenSecret"><a href="../CoreTweet/OAuth.cs.html#17604292">RequestTokenSecret</a></span>)
+                .<span class="identifier" title="string Tokens.CreateAuthorizationHeader(MethodType type, string url, IEnumerable<KeyValuePair<string, object>> parameters)"><a href="../CoreTweet/Objects/Tokens.cs.html#25899004">CreateAuthorizationHeader</a></span>(<span class="type" title="CoreTweet.MethodType"><a href="../CoreTweet/Request.cs.html#11067177">MethodType</a></span>.<span class="identifier" title="MethodType.Get"><a href="../CoreTweet/Request.cs.html#31414552">Get</a></span>, <span class="identifier" title="string OAuth.AccessTokenUrl"><a href="../CoreTweet/OAuth.cs.html#66526701">AccessTokenUrl</a></span>, <span class="identifier" title="Dictionary<string, object> prm"><a href="../CoreTweet/OAuth.cs.html#34091724">prm</a></span>)</span></span>;
+            <span class="keyword">try</span>
+            {
+<span id="58923499">                <span class="keyword" title="System.Collections.Generic.Dictionary<string, string>">var</span> <span id="64935146">dic = <span id="13616826"><span class="keyword">from</span> x <span class="keyword">in</span> <span class="type" title="CoreTweet.Request"><a href="../CoreTweet/Request.Async.cs.html#37126617">Request</a></span>.<span class="identifier" title="HttpWebResponse Request.HttpGet(string url, IEnumerable<KeyValuePair<string, object>> prm, string authorizationHeader, ConnectionOptions options)"><a href="../CoreTweet/Request.cs.html#2549077">HttpGet</a></span>(<span class="identifier" title="string OAuth.AccessTokenUrl"><a href="../CoreTweet/OAuth.cs.html#66526701">AccessTokenUrl</a></span>, <span class="identifier" title="Dictionary<string, object> prm"><a href="../CoreTweet/OAuth.cs.html#34091724">prm</a></span>, <span class="identifier" title="string header"><a href="../CoreTweet/OAuth.cs.html#54002971">header</a></span>, <span class="identifier" title="OAuthSession session"><a href="../CoreTweet/OAuth.cs.html#15423512">session</a></span>.<span class="identifier" title="ConnectionOptions OAuthSession.ConnectionOptions"><a href="../CoreTweet/OAuth.cs.html#22918075">ConnectionOptions</a></span>).<span class="identifier" title="DisposableExtensions.Using<HttpWebResponse> HttpWebResponse.Use<HttpWebResponse>()"><a href="../CoreTweet/Internal/Extensions.cs.html#9414013">Use</a></span>()
+</span><span id="47532104">                          <span class="keyword">from</span> y <span class="keyword">in</span> <span class="keyword">new</span> <span class="type" title="System.IO.StreamReader">StreamReader</span>(<span class="identifier" title="HttpWebResponse x"><a href="../CoreTweet/OAuth.cs.html#13616826">x</a></span>.<span class="identifier" title="Stream HttpWebResponse.GetResponseStream()">GetResponseStream</span>()).<span class="identifier" title="DisposableExtensions.Using<StreamReader> StreamReader.Use<StreamReader>()"><a href="../CoreTweet/Internal/Extensions.cs.html#9414013">Use</a></span>()
+</span>                          <span class="keyword">select</span> <span class="identifier" title="StreamReader y"><a href="../CoreTweet/OAuth.cs.html#47532104">y</a></span>.<span class="identifier" title="string StreamReader.ReadToEnd()">ReadToEnd</span>()
+                                  .<span class="identifier" title="string[] string.Split(params char[] separator)">Split</span>(<span class="string">'&amp;'</span>)
+                                  .<span class="identifier" title="IEnumerable<string> IEnumerable<string>.Where<string>(Func<string, bool> predicate)">Where</span>(<span id="15143585">z </span>=&gt; <span class="identifier" title="string z"><a href="../CoreTweet/OAuth.cs.html#15143585">z</a></span>.<span class="identifier" title="bool IEnumerable<char>.Contains<char>(char value)">Contains</span>(<span class="string">'='</span>))
+                                  .<span class="identifier" title="IEnumerable<string[]> IEnumerable<string>.Select<string, string[]>(Func<string, string[]> selector)">Select</span>(<span id="67049152">z </span>=&gt; <span class="identifier" title="string z"><a href="../CoreTweet/OAuth.cs.html#67049152">z</a></span>.<span class="identifier" title="string[] string.Split(params char[] separator)">Split</span>(<span class="string">'='</span>))
+                                  .<span class="identifier" title="Dictionary<string, string> IEnumerable<string[]>.ToDictionary<string[], string, string>(Func<string[], string> keySelector, Func<string[], string> elementSelector)">ToDictionary</span>(<span id="55459922">z </span>=&gt; <span class="identifier" title="string[] z"><a href="../CoreTweet/OAuth.cs.html#55459922">z</a></span>[0], <span id="5333801">z </span>=&gt; <span class="identifier" title="string[] z"><a href="../CoreTweet/OAuth.cs.html#5333801">z</a></span>[1])</span></span>;
+<span id="44513400">                <span class="keyword" title="CoreTweet.Tokens"><a href="../CoreTweet/Objects/Tokens.cs.html#4030420">var</a></span> <span id="15551286">t = <span class="type" title="CoreTweet.Tokens"><a href="../CoreTweet/Objects/Tokens.cs.html#4030420">Tokens</a></span>.<span class="identifier" title="Tokens Tokens.Create(string consumerKey, string consumerSecret, string accessToken, string accessSecret, long userID = 0, string screenName = null)"><a href="../CoreTweet/Objects/Tokens.cs.html#44767477">Create</a></span>(<span class="identifier" title="OAuthSession session"><a href="../CoreTweet/OAuth.cs.html#15423512">session</a></span>.<span class="identifier" title="string OAuthSession.ConsumerKey"><a href="../CoreTweet/OAuth.cs.html#53052902">ConsumerKey</a></span>, <span class="identifier" title="OAuthSession session"><a href="../CoreTweet/OAuth.cs.html#15423512">session</a></span>.<span class="identifier" title="string OAuthSession.ConsumerSecret"><a href="../CoreTweet/OAuth.cs.html#54944177">ConsumerSecret</a></span>,
+                    <span class="identifier" title="Dictionary<string, string> dic"><a href="../CoreTweet/OAuth.cs.html#64935146">dic</a></span>[<span class="string">"oauth_token"</span>], <span class="identifier" title="Dictionary<string, string> dic"><a href="../CoreTweet/OAuth.cs.html#64935146">dic</a></span>[<span class="string">"oauth_token_secret"</span>], <span class="keyword">long</span>.<span class="identifier" title="long long.Parse(string s)">Parse</span>(<span class="identifier" title="Dictionary<string, string> dic"><a href="../CoreTweet/OAuth.cs.html#64935146">dic</a></span>[<span class="string">"user_id"</span>]), <span class="identifier" title="Dictionary<string, string> dic"><a href="../CoreTweet/OAuth.cs.html#64935146">dic</a></span>[<span class="string">"screen_name"</span>])</span></span>;
+                <span class="identifier" title="Tokens t"><a href="../CoreTweet/OAuth.cs.html#15551286">t</a></span>.<span class="identifier" title="ConnectionOptions Core.TokensBase.ConnectionOptions"><a href="../CoreTweet/Internal/TokensBase.cs.html#46692925">ConnectionOptions</a></span> = <span class="identifier" title="OAuthSession session"><a href="../CoreTweet/OAuth.cs.html#15423512">session</a></span>.<span class="identifier" title="ConnectionOptions OAuthSession.ConnectionOptions"><a href="../CoreTweet/OAuth.cs.html#22918075">ConnectionOptions</a></span>;
+                <span class="keyword">return</span> <span class="identifier" title="Tokens t"><a href="../CoreTweet/OAuth.cs.html#15551286">t</a></span>;
+            }
+            <span class="keyword">catch</span><span id="37587813">(<span class="type" title="System.Net.WebException">WebException</span> ex)
+</span>            {
+<span id="11753334">                <span class="keyword" title="CoreTweet.TwitterException"><a href="../CoreTweet/Exceptions.cs.html#61904524">var</a></span> <span id="6045017">tex = <span class="type" title="CoreTweet.TwitterException"><a href="../CoreTweet/Exceptions.cs.html#61904524">TwitterException</a></span>.<span class="identifier" title="TwitterException TwitterException.Create(WebException ex)"><a href="../CoreTweet/Exceptions.cs.html#36706801">Create</a></span>(<span class="identifier" title="WebException ex"><a href="../CoreTweet/OAuth.cs.html#37587813">ex</a></span>)</span></span>;
+                <span class="keyword">if</span>(<span class="identifier" title="TwitterException tex"><a href="../CoreTweet/OAuth.cs.html#6045017">tex</a></span> != <span class="keyword">null</span>)
+                    <span class="keyword">throw</span> <span class="identifier" title="TwitterException tex"><a href="../CoreTweet/OAuth.cs.html#6045017">tex</a></span>;
+                <span class="keyword">throw</span>;
+            }
+        }
+</span><span class="keyword">#</span><span class="keyword">endif</span>
+    }
+</span><span id="52064739">
+    <span class="xmlcomment">///<span class="comment"> </span>&lt;summary&gt;
+    ///<span class="comment"> Provides a set of static (Shared in Visual Basic) methods for OAuth 2 Authentication.</span>
+    ///<span class="comment"> </span>&lt;/summary&gt;
+</span>    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">partial</span> <span class="keyword">class</span> <span class="type">OAuth2</span>
+    {
+<span id="37446602">        <span class="keyword">static</span> <span class="keyword">readonly</span> <span id="55147837"><span class="keyword">string</span> <span id="44272118">AccessTokenUrl = <span class="string">"https://api.twitter.com/oauth2/token"</span></span></span>;
+</span><span id="38425405">        <span class="keyword">static</span> <span class="keyword">readonly</span> <span id="27619592"><span class="keyword">string</span> <span id="16204708">InvalidateTokenUrl = <span class="string">"https://api.twitter.com/oauth2/invalidate_token"</span></span></span>;
+</span><span id="65861596">
+        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">string</span> CreateCredentials(<span id="57745549"><span class="keyword">string</span> consumerKey</span>, <span id="53140541"><span class="keyword">string</span> consumerSecret</span>)
+        {
+            <span class="keyword">return</span> <span class="string">"Basic "</span> + <span class="type" title="System.Convert">Convert</span>.<span class="identifier" title="string Convert.ToBase64String(byte[] inArray)">ToBase64String</span>(<span class="type" title="System.Text.Encoding">Encoding</span>.<span class="identifier" title="Encoding Encoding.UTF8">UTF8</span>.<span class="identifier" title="byte[] Encoding.GetBytes(string s)">GetBytes</span>(<span class="identifier" title="string consumerKey"><a href="../CoreTweet/OAuth.cs.html#57745549">consumerKey</a></span> + <span class="string">":"</span> + <span class="identifier" title="string consumerSecret"><a href="../CoreTweet/OAuth.cs.html#53140541">consumerSecret</a></span>));
+        }
+</span><span id="16510285">
+<span class="keyword">#</span><span class="keyword">if</span> !(PCL || WIN_RT || WP)
+        <span class="xmlcomment">///<span class="comment"> </span>&lt;summary&gt;
+        ///<span class="comment"> Gets the OAuth 2 Bearer Token.</span>
+        ///<span class="comment"> </span>&lt;/summary&gt;
+        ///<span class="comment"> </span>&lt;param name="<span class="identifier" title="string consumerKey"><a href="../CoreTweet/OAuth.cs.html#25952669">consumerKey</a></span>"&gt;<span class="comment">The consumer key.</span>&lt;/param&gt;
+        ///<span class="comment"> </span>&lt;param name="<span class="identifier" title="string consumerSecret"><a href="../CoreTweet/OAuth.cs.html#10268735">consumerSecret</a></span>"&gt;<span class="comment">The consumer secret.</span>&lt;/param&gt;
+        ///<span class="comment"> </span>&lt;param name="<span class="identifier" title="CoreTweet.ConnectionOptions options = null"><a href="../CoreTweet/OAuth.cs.html#45550313">options</a></span>"&gt;<span class="comment">The connection options for the request.</span>&lt;/param&gt;
+        ///<span class="comment"> </span>&lt;returns&gt;<span class="comment">The tokens.</span>&lt;/returns&gt;
+</span>        <span class="keyword">public</span> <span class="keyword">static</span> <span class="type" title="CoreTweet.OAuth2Token"><a href="../CoreTweet/Objects/OAuth2Token.cs.html#20259928">OAuth2Token</a></span> GetToken(<span id="25952669"><span class="keyword">string</span> consumerKey</span>, <span id="10268735"><span class="keyword">string</span> consumerSecret</span>, <span id="45550313"><span class="type" title="CoreTweet.ConnectionOptions"><a href="../CoreTweet/ConnectionOptions.cs.html#38254418">ConnectionOptions</a></span> options = <span class="keyword">null</span></span>)
+        {
+            <span class="keyword">try</span>
+            {
+<span id="66037062">                <span class="keyword" title="string">var</span> <span id="18543540">token = <span id="9518051"><span class="keyword">from</span> x <span class="keyword">in</span> <span class="type" title="CoreTweet.Request"><a href="../CoreTweet/Request.Async.cs.html#37126617">Request</a></span>.<span class="identifier" title="HttpWebResponse Request.HttpPost(string url, IEnumerable<KeyValuePair<string, object>> prm, string authorizationHeader, ConnectionOptions options)"><a href="../CoreTweet/Request.cs.html#4342257">HttpPost</a></span>(
+                                <span class="identifier" title="string OAuth2.AccessTokenUrl"><a href="../CoreTweet/OAuth.cs.html#44272118">AccessTokenUrl</a></span>,
+                                <span class="keyword">new</span> <span class="type" title="System.Collections.Generic.Dictionary<string, object>">Dictionary</span>&lt;<span class="keyword">string</span>, <span class="keyword">object</span>&gt;() { { <span class="string">"grant_type"</span>, <span class="string">"client_credentials"</span> } }, <span class="comment">//  At this time, only client_credentials is allowed.</span>
+                                <span class="identifier" title="string OAuth2.CreateCredentials(string consumerKey, string consumerSecret)"><a href="../CoreTweet/OAuth.cs.html#65861596">CreateCredentials</a></span>(<span class="identifier" title="string consumerKey"><a href="../CoreTweet/OAuth.cs.html#25952669">consumerKey</a></span>, <span class="identifier" title="string consumerSecret"><a href="../CoreTweet/OAuth.cs.html#10268735">consumerSecret</a></span>),
+                                <span class="identifier" title="ConnectionOptions options = null"><a href="../CoreTweet/OAuth.cs.html#45550313">options</a></span>).<span class="identifier" title="DisposableExtensions.Using<HttpWebResponse> HttpWebResponse.Use<HttpWebResponse>()"><a href="../CoreTweet/Internal/Extensions.cs.html#9414013">Use</a></span>()
+</span><span id="41337724">                            <span class="keyword">from</span> y <span class="keyword">in</span> <span class="keyword">new</span> <span class="type" title="System.IO.StreamReader">StreamReader</span>(<span class="identifier" title="HttpWebResponse x"><a href="../CoreTweet/OAuth.cs.html#9518051">x</a></span>.<span class="identifier" title="Stream HttpWebResponse.GetResponseStream()">GetResponseStream</span>()).<span class="identifier" title="DisposableExtensions.Using<StreamReader> StreamReader.Use<StreamReader>()"><a href="../CoreTweet/Internal/Extensions.cs.html#9414013">Use</a></span>()
+</span>                            <span class="keyword">select</span> (<span class="keyword">string</span>)<span class="type" title="Newtonsoft.Json.Linq.JObject">JObject</span>.<span class="identifier" title="JObject JObject.Parse(string json)">Parse</span>(<span class="identifier" title="StreamReader y"><a href="../CoreTweet/OAuth.cs.html#41337724">y</a></span>.<span class="identifier" title="string StreamReader.ReadToEnd()">ReadToEnd</span>())[<span class="string">"access_token"</span>]</span></span>;
+<span id="33245224">                <span class="keyword" title="CoreTweet.OAuth2Token"><a href="../CoreTweet/Objects/OAuth2Token.cs.html#20259928">var</a></span> <span id="21320670">t = <span class="type" title="CoreTweet.OAuth2Token"><a href="../CoreTweet/Objects/OAuth2Token.cs.html#20259928">OAuth2Token</a></span>.<span class="identifier" title="OAuth2Token OAuth2Token.Create(string consumerKey, string consumerSecret, string bearer)"><a href="../CoreTweet/Objects/OAuth2Token.cs.html#10081942">Create</a></span>(<span class="identifier" title="string consumerKey"><a href="../CoreTweet/OAuth.cs.html#25952669">consumerKey</a></span>, <span class="identifier" title="string consumerSecret"><a href="../CoreTweet/OAuth.cs.html#10268735">consumerSecret</a></span>, <span class="identifier" title="string token"><a href="../CoreTweet/OAuth.cs.html#18543540">token</a></span>)</span></span>;
+                <span class="identifier" title="OAuth2Token t"><a href="../CoreTweet/OAuth.cs.html#21320670">t</a></span>.<span class="identifier" title="ConnectionOptions Core.TokensBase.ConnectionOptions"><a href="../CoreTweet/Internal/TokensBase.cs.html#46692925">ConnectionOptions</a></span> = <span class="identifier" title="ConnectionOptions options = null"><a href="../CoreTweet/OAuth.cs.html#45550313">options</a></span>;
+                <span class="keyword">return</span> <span class="identifier" title="OAuth2Token t"><a href="../CoreTweet/OAuth.cs.html#21320670">t</a></span>;
+            }
+            <span class="keyword">catch</span><span id="27029944">(<span class="type" title="System.Net.WebException">WebException</span> ex)
+</span>            {
+<span id="28239399">                <span class="keyword" title="CoreTweet.TwitterException"><a href="../CoreTweet/Exceptions.cs.html#61904524">var</a></span> <span id="58195701">tex = <span class="type" title="CoreTweet.TwitterException"><a href="../CoreTweet/Exceptions.cs.html#61904524">TwitterException</a></span>.<span class="identifier" title="TwitterException TwitterException.Create(WebException ex)"><a href="../CoreTweet/Exceptions.cs.html#36706801">Create</a></span>(<span class="identifier" title="WebException ex"><a href="../CoreTweet/OAuth.cs.html#27029944">ex</a></span>)</span></span>;
+                <span class="keyword">if</span>(<span class="identifier" title="TwitterException tex"><a href="../CoreTweet/OAuth.cs.html#58195701">tex</a></span> != <span class="keyword">null</span>)
+                    <span class="keyword">throw</span> <span class="identifier" title="TwitterException tex"><a href="../CoreTweet/OAuth.cs.html#58195701">tex</a></span>;
+                <span class="keyword">throw</span>;
+            }
+        }
+</span><span id="501132">
+        <span class="xmlcomment">///<span class="comment"> </span>&lt;summary&gt;
+        ///<span class="comment"> Invalidates the OAuth 2 Bearer Token.</span>
+        ///<span class="comment"> </span>&lt;/summary&gt;
+        ///<span class="comment"> </span>&lt;param name="<span class="identifier" title="CoreTweet.OAuth2Token tokens"><a href="../CoreTweet/OAuth.cs.html#57285590">tokens</a></span>"&gt;<span class="comment">An instance of </span>&lt;see cref="<span class="identifier"><span class="identifier" title="CoreTweet">CoreTweet</span>.<span class="type" title="CoreTweet.OAuth2Token"><a href="../CoreTweet/Objects/OAuth2Token.cs.html#20259928">OAuth2Token</a></span></span>"/&gt;<span class="comment">.</span>&lt;/param&gt;
+        ///<span class="comment"> </span>&lt;returns&gt;<span class="comment">The invalidated token.</span>&lt;/returns&gt;
+</span>        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">string</span> InvalidateToken(<span id="57285590"><span class="keyword">this</span> <span class="type" title="CoreTweet.OAuth2Token"><a href="../CoreTweet/Objects/OAuth2Token.cs.html#20259928">OAuth2Token</a></span> tokens</span>)
+        {
+            <span class="keyword">try</span>
+            {
+                <span class="keyword">return</span> <span id="59110165"><span class="keyword">from</span> x <span class="keyword">in</span> <span class="type" title="CoreTweet.Request"><a href="../CoreTweet/Request.Async.cs.html#37126617">Request</a></span>.<span class="identifier" title="HttpWebResponse Request.HttpPost(string url, IEnumerable<KeyValuePair<string, object>> prm, string authorizationHeader, ConnectionOptions options)"><a href="../CoreTweet/Request.cs.html#4342257">HttpPost</a></span>(
+                           <span class="identifier" title="string OAuth2.InvalidateTokenUrl"><a href="../CoreTweet/OAuth.cs.html#16204708">InvalidateTokenUrl</a></span>,
+                           <span class="keyword">new</span> <span class="type" title="System.Collections.Generic.Dictionary<string, object>">Dictionary</span>&lt;<span class="keyword">string</span>, <span class="keyword">object</span>&gt;() { { <span class="string">"access_token"</span>, <span class="type" title="System.Uri">Uri</span>.<span class="identifier" title="string Uri.UnescapeDataString(string stringToUnescape)">UnescapeDataString</span>(<span class="identifier" title="OAuth2Token tokens"><a href="../CoreTweet/OAuth.cs.html#57285590">tokens</a></span>.<span class="identifier" title="string OAuth2Token.BearerToken"><a href="../CoreTweet/Objects/OAuth2Token.cs.html#19159061">BearerToken</a></span>) } },
+                           <span class="identifier" title="string OAuth2.CreateCredentials(string consumerKey, string consumerSecret)"><a href="../CoreTweet/OAuth.cs.html#65861596">CreateCredentials</a></span>(<span class="identifier" title="OAuth2Token tokens"><a href="../CoreTweet/OAuth.cs.html#57285590">tokens</a></span>.<span class="identifier" title="string Core.TokensBase.ConsumerKey"><a href="../CoreTweet/Internal/TokensBase.cs.html#35893494">ConsumerKey</a></span>, <span class="identifier" title="OAuth2Token tokens"><a href="../CoreTweet/OAuth.cs.html#57285590">tokens</a></span>.<span class="identifier" title="string Core.TokensBase.ConsumerSecret"><a href="../CoreTweet/Internal/TokensBase.cs.html#58798492">ConsumerSecret</a></span>),
+                           <span class="identifier" title="OAuth2Token tokens"><a href="../CoreTweet/OAuth.cs.html#57285590">tokens</a></span>.<span class="identifier" title="ConnectionOptions Core.TokensBase.ConnectionOptions"><a href="../CoreTweet/Internal/TokensBase.cs.html#46692925">ConnectionOptions</a></span>).<span class="identifier" title="DisposableExtensions.Using<HttpWebResponse> HttpWebResponse.Use<HttpWebResponse>()"><a href="../CoreTweet/Internal/Extensions.cs.html#9414013">Use</a></span>()
+</span><span id="35183677">                       <span class="keyword">from</span> y <span class="keyword">in</span> <span class="keyword">new</span> <span class="type" title="System.IO.StreamReader">StreamReader</span>(<span class="identifier" title="HttpWebResponse x"><a href="../CoreTweet/OAuth.cs.html#59110165">x</a></span>.<span class="identifier" title="Stream HttpWebResponse.GetResponseStream()">GetResponseStream</span>()).<span class="identifier" title="DisposableExtensions.Using<StreamReader> StreamReader.Use<StreamReader>()"><a href="../CoreTweet/Internal/Extensions.cs.html#9414013">Use</a></span>()
+</span>                       <span class="keyword">select</span> (<span class="keyword">string</span>)<span class="type" title="Newtonsoft.Json.Linq.JObject">JObject</span>.<span class="identifier" title="JObject JObject.Parse(string json)">Parse</span>(<span class="identifier" title="StreamReader y"><a href="../CoreTweet/OAuth.cs.html#35183677">y</a></span>.<span class="identifier" title="string StreamReader.ReadToEnd()">ReadToEnd</span>())[<span class="string">"access_token"</span>];
+            }
+            <span class="keyword">catch</span><span id="21946182">(<span class="type" title="System.Net.WebException">WebException</span> ex)
+</span>            {
+<span id="9591669">                <span class="keyword" title="CoreTweet.TwitterException"><a href="../CoreTweet/Exceptions.cs.html#61904524">var</a></span> <span id="38858964">tex = <span class="type" title="CoreTweet.TwitterException"><a href="../CoreTweet/Exceptions.cs.html#61904524">TwitterException</a></span>.<span class="identifier" title="TwitterException TwitterException.Create(WebException ex)"><a href="../CoreTweet/Exceptions.cs.html#36706801">Create</a></span>(<span class="identifier" title="WebException ex"><a href="../CoreTweet/OAuth.cs.html#21946182">ex</a></span>)</span></span>;
+                <span class="keyword">if</span>(<span class="identifier" title="TwitterException tex"><a href="../CoreTweet/OAuth.cs.html#38858964">tex</a></span> != <span class="keyword">null</span>)
+                    <span class="keyword">throw</span> <span class="identifier" title="TwitterException tex"><a href="../CoreTweet/OAuth.cs.html#38858964">tex</a></span>;
+                <span class="keyword">throw</span>;
+            }
+        }
+</span><span class="keyword">#</span><span class="keyword">endif</span>
+    }
+</span>}
+</pre>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrapjs")
+    @Scripts.Render("~/bundles/SourceView")
+    <script>
+        //テスト用に HTML でツリーつくってある
+        $("#files,#solutions,#projects").jstree();
+    </script>
+
+    <!--
+        /*!
+         * jsTree 3.0.8
+         * http://jstree.com/
+         *
+         * Copyright (c) 2014 Ivan Bozhanov (http://vakata.com)
+         *
+         * Licensed same as jquery - under the terms of the MIT License
+         *   http://www.opensource.org/licenses/mit-license.php
+         */
+    -->
+</body>
+</html>

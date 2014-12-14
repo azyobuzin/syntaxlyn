@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syntaxlyn.Core", "Syntaxlyn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syntaxlyn.Cmd", "Syntaxlyn.Cmd\Syntaxlyn.Cmd.csproj", "{E68436FE-4177-47E4-8074-46CDB3678D10}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syntaxlyn.Web", "Syntaxlyn.Web\Syntaxlyn.Web.csproj", "{B1574E1F-53BD-4E5F-BF2C-98B0F9696505}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{E68436FE-4177-47E4-8074-46CDB3678D10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E68436FE-4177-47E4-8074-46CDB3678D10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E68436FE-4177-47E4-8074-46CDB3678D10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1574E1F-53BD-4E5F-BF2C-98B0F9696505}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1574E1F-53BD-4E5F-BF2C-98B0F9696505}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1574E1F-53BD-4E5F-BF2C-98B0F9696505}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1574E1F-53BD-4E5F-BF2C-98B0F9696505}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
